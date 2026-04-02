@@ -1,274 +1,1837 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>ilyllli4</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ilyllli4 — стример</title>
+<meta name="description" content="ilyllli4 — стримы без сценария: CS, тунчазы, фильмы и вообще всё подряд." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial;}
-
-body{
-background:#0e0e10;
-color:white;
+:root {
+--bg: #07070a;
+--bg-2: #0d0d12;
+--bg-3: #12121a;
+--panel: rgba(20, 20, 28, 0.75);
+--panel-2: rgba(17, 17, 24, 0.92);
+--line: rgba(255,255,255,0.08);
+--line-strong: rgba(255,255,255,0.14);
+--paper: #f4f1ff;
+--paper-soft: rgba(244,241,255,0.78);
+--muted: rgba(244,241,255,0.48);
+--twitch: #9146ff;
+--twitch-2: #772ce8;
+--tg: #229ED9;
+--green: #00d38a;
+--yellow: #ffd257;
+--red: #ff5d72;
+--shadow-xl: 0 24px 100px rgba(0,0,0,0.48);
+--shadow-lg: 0 14px 50px rgba(0,0,0,0.34);
+--radius-xl: 34px;
+--radius-lg: 26px;
+--radius-md: 20px;
+--container: 1380px;
+--ease: cubic-bezier(.22,.61,.36,1);
 }
 
-/* 🌌 фон */
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-background:radial-gradient(circle at 30% 20%, rgba(145,70,255,0.15), transparent 40%),
-radial-gradient(circle at 70% 80%, rgba(34,158,217,0.15), transparent 40%);
-z-index:-1;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+min-height: 100vh;
+overflow-x: hidden;
+color: var(--paper);
+background:
+radial-gradient(circle at 15% 10%, rgba(145,70,255,0.18), transparent 24%),
+radial-gradient(circle at 85% 15%, rgba(34,158,217,0.12), transparent 20%),
+radial-gradient(circle at 50% 70%, rgba(0,211,138,0.06), transparent 24%),
+linear-gradient(180deg, #050508 0%, #09090d 36%, #0d0d13 100%);
+font-family: 'Inter', sans-serif;
 }
 
-/* 🧱 layout */
-.wrapper{
-max-width:1200px;
-margin:40px auto;
-display:flex;
-gap:20px;
+body::before {
+content: "";
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 0;
+opacity: 0.22;
+background-image:
+linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+background-size: 68px 68px;
+mask-image: radial-gradient(circle at center, black 28%, transparent 80%);
 }
 
-/* 📺 MAIN */
-.main{
-flex:1;
-display:flex;
-flex-direction:column;
-gap:20px;
+body::after {
+content: "";
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 1;
+opacity: 0.08;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='white' fill-opacity='0.16'%3E%3Ccircle cx='14' cy='16' r='0.8'/%3E%3Ccircle cx='88' cy='46' r='0.8'/%3E%3Ccircle cx='144' cy='124' r='0.8'/%3E%3Ccircle cx='48' cy='140' r='0.7'/%3E%3Ccircle cx='162' cy='72' r='0.7'/%3E%3C/g%3E%3C/svg%3E");
+mix-blend-mode: screen;
 }
 
-/* 🎥 PLAYER */
-.player{
-height:300px;
-border-radius:16px;
-background:#000;
-position:relative;
-overflow:hidden;
-box-shadow:0 0 40px rgba(0,0,0,0.6);
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+
+.site-shell {
+position: relative;
+z-index: 3;
+width: min(calc(100% - 32px), 1500px);
+margin: 18px auto;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 32px;
+background:
+linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015)),
+rgba(8,8,12,0.78);
+backdrop-filter: blur(18px);
+box-shadow: 0 30px 120px rgba(0,0,0,0.52);
+overflow: hidden;
 }
 
-.player::after{
-content:"LIVE";
-position:absolute;
-top:10px;
-left:10px;
-background:red;
-padding:4px 8px;
-border-radius:6px;
-font-size:12px;
+.intro {
+position: fixed;
+inset: 0;
+z-index: 120;
+display: flex;
+align-items: center;
+justify-content: center;
+background:
+radial-gradient(circle at center, rgba(145,70,255,0.10), transparent 22%),
+linear-gradient(180deg, #050507, #08080d);
+transition: opacity 1s ease, visibility 1s ease;
 }
 
-/* шум */
-.player::before{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-background:url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-opacity:0.15;
+.intro.hidden {
+opacity: 0;
+visibility: hidden;
 }
 
-/* 🧍 инфо */
-.card{
-background:#18181b;
-border-radius:16px;
-padding:20px;
-box-shadow:0 0 30px rgba(0,0,0,0.6);
+.intro-inner {
+text-align: center;
+width: min(90vw, 760px);
 }
 
-.avatar{
-width:90px;
-border-radius:50%;
-margin-bottom:10px;
+.intro-line {
+width: 0;
+height: 1px;
+margin: 0 auto 22px;
+background: linear-gradient(90deg, transparent, rgba(145,70,255,0.95), transparent);
+animation: introLine 1.1s var(--ease) forwards;
 }
 
-h1{font-size:28px;}
-.sub{opacity:0.6;margin-bottom:10px;}
-
-.buttons a{
-display:inline-block;
-margin-right:10px;
-padding:10px 16px;
-border-radius:8px;
-text-decoration:none;
-color:white;
+.intro-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(62px, 12vw, 136px);
+font-weight: 500;
+line-height: .9;
+letter-spacing: -.05em;
+opacity: 0;
+transform: translateY(12px);
+animation: introText .95s .35s var(--ease) forwards;
 }
 
-.twitch{background:#9146ff;}
-.telegram{background:#229ED9;}
-
-.info{margin-top:15px;opacity:0.8;line-height:1.5}
-
-/* 💬 CHAT */
-.chat{
-width:340px;
-background:#18181b;
-border-radius:16px;
-display:flex;
-flex-direction:column;
-overflow:hidden;
-box-shadow:0 0 40px rgba(0,0,0,0.6);
+.intro-sub {
+margin-top: 14px;
+font-size: 10px;
+letter-spacing: .34em;
+text-transform: uppercase;
+color: var(--muted);
+opacity: 0;
+transform: translateY(10px);
+animation: introText .9s .6s var(--ease) forwards;
 }
 
-.chat-header{
-padding:10px;
-border-bottom:1px solid #333;
-font-weight:bold;
+.topbar {
+position: sticky;
+top: 0;
+z-index: 70;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 18px;
+padding: 16px 22px;
+border-bottom: 1px solid rgba(255,255,255,0.06);
+background: rgba(10,10,14,0.72);
+backdrop-filter: blur(18px);
 }
 
-.messages{
-height:520px;
-padding:10px;
-overflow:hidden;
-font-size:13px;
+.brand {
+display: flex;
+align-items: center;
+gap: 14px;
+min-width: 0;
 }
 
-.msg{margin:3px 0;}
-.name{font-weight:bold;}
-.mod{color:#00ff88;}
-.vip{color:#ff69b4;}
-.sub{color:#ffd700;}
-.donate{color:#00e5ff;}
-
-/* 📜 блоки */
-.section{
-margin-top:10px;
-opacity:0.8;
-line-height:1.6;
+.brand-avatar {
+width: 42px;
+height: 42px;
+border-radius: 50%;
+overflow: hidden;
+border: 1px solid rgba(145,70,255,0.28);
+box-shadow: 0 0 0 1px rgba(145,70,255,0.12), 0 8px 28px rgba(0,0,0,0.26);
+flex-shrink: 0;
 }
 
+.brand-avatar img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.brand-title {
+font-size: 18px;
+font-weight: 700;
+letter-spacing: .02em;
+}
+
+.brand-sub {
+margin-top: 2px;
+font-size: 11px;
+color: var(--muted);
+letter-spacing: .18em;
+text-transform: uppercase;
+white-space: nowrap;
+}
+
+.nav {
+display: flex;
+align-items: center;
+gap: 8px;
+flex-wrap: wrap;
+justify-content: flex-end;
+}
+
+.nav a {
+padding: 10px 14px;
+border-radius: 999px;
+font-size: 12px;
+letter-spacing: .15em;
+text-transform: uppercase;
+color: var(--paper-soft);
+transition: transform .25s ease, background .25s ease;
+}
+
+.nav a:hover {
+background: rgba(255,255,255,0.05);
+transform: translateY(-1px);
+}
+
+.nav .nav-cta {
+border: 1px solid rgba(145,70,255,0.32);
+background: linear-gradient(180deg, rgba(145,70,255,0.18), rgba(145,70,255,0.04));
+color: #fff;
+box-shadow: 0 12px 26px rgba(145,70,255,0.18);
+}
+
+.hero {
+position: relative;
+padding: 34px 22px 22px;
+border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.hero-grid {
+display: grid;
+grid-template-columns: minmax(0, 1.15fr) 360px;
+gap: 18px;
+align-items: stretch;
+}
+
+.stack {
+display: grid;
+gap: 18px;
+}
+
+.panel {
+position: relative;
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: var(--radius-lg);
+background:
+linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+rgba(13,13,18,0.82);
+box-shadow: var(--shadow-lg);
+overflow: hidden;
+}
+
+.panel::before {
+content: "";
+position: absolute;
+inset: 0;
+pointer-events: none;
+background: radial-gradient(circle at 15% 15%, rgba(145,70,255,0.08), transparent 30%);
+}
+
+.hero-main {
+display: grid;
+grid-template-columns: minmax(0, 1fr) 340px;
+gap: 18px;
+padding: 24px;
+min-height: 430px;
+}
+
+.eyebrow {
+display: inline-flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 18px;
+font-size: 10px;
+letter-spacing: .32em;
+text-transform: uppercase;
+color: rgba(145,70,255,0.96);
+}
+
+.eyebrow::before {
+content: "";
+width: 42px;
+height: 1px;
+background: linear-gradient(90deg, rgba(145,70,255,1), transparent);
+}
+
+.hero-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(86px, 13vw, 180px);
+line-height: .82;
+letter-spacing: -.06em;
+font-weight: 600;
+text-shadow: 0 8px 40px rgba(0,0,0,0.45);
+}
+
+.hero-title .accent {
+color: #b794ff;
+text-shadow: 0 0 28px rgba(145,70,255,0.42);
+}
+
+.hero-copy {
+margin-top: 18px;
+max-width: 740px;
+font-size: 16px;
+line-height: 1.95;
+color: rgba(244,241,255,0.76);
+}
+
+.hero-meta {
+margin-top: 24px;
+display: flex;
+flex-wrap: wrap;
+gap: 12px;
+}
+
+.meta-pill {
+padding: 12px 15px;
+border-radius: 999px;
+border: 1px solid rgba(255,255,255,0.08);
+background: rgba(255,255,255,0.04);
+font-size: 11px;
+letter-spacing: .14em;
+text-transform: uppercase;
+color: var(--paper-soft);
+backdrop-filter: blur(10px);
+}
+
+.hero-actions {
+margin-top: 24px;
+display: flex;
+flex-wrap: wrap;
+gap: 12px;
+}
+
+.btn {
+position: relative;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+padding: 16px 22px;
+border-radius: 999px;
+border: 1px solid rgba(255,255,255,0.10);
+overflow: hidden;
+transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+font-size: 12px;
+letter-spacing: .18em;
+text-transform: uppercase;
+color: #fff;
+}
+
+.btn:hover {
+transform: translateY(-2px);
+}
+
+.btn-primary {
+border-color: rgba(145,70,255,0.34);
+background: linear-gradient(180deg, rgba(145,70,255,0.20), rgba(145,70,255,0.05));
+box-shadow: 0 14px 38px rgba(145,70,255,0.20);
+}
+
+.btn-secondary {
+border-color: rgba(34,158,217,0.24);
+background: linear-gradient(180deg, rgba(34,158,217,0.15), rgba(34,158,217,0.03));
+box-shadow: 0 14px 38px rgba(34,158,217,0.16);
+}
+
+.btn-soft {
+background: rgba(255,255,255,0.03);
+color: var(--paper-soft);
+}
+
+.hero-side {
+display: grid;
+gap: 16px;
+align-content: start;
+}
+
+.portrait-card {
+position: relative;
+min-height: 100%;
+border-radius: 28px;
+overflow: hidden;
+border: 1px solid rgba(145,70,255,0.16);
+background: rgba(255,255,255,0.02);
+box-shadow: 0 18px 50px rgba(0,0,0,0.36);
+}
+
+.portrait-card img {
+width: 100%;
+height: 100%;
+min-height: 380px;
+object-fit: cover;
+object-position: center top;
+filter: saturate(.92) brightness(.84);
+transform: scale(1.04);
+}
+
+.portrait-card::after {
+content: "";
+position: absolute;
+inset: 0;
+background:
+linear-gradient(180deg, rgba(5,5,8,0.06), rgba(5,5,8,0.44) 60%, rgba(5,5,8,0.86) 100%),
+radial-gradient(circle at 20% 15%, rgba(145,70,255,0.20), transparent 28%);
+pointer-events: none;
+}
+
+.portrait-badge {
+position: absolute;
+top: 16px;
+right: 16px;
+z-index: 2;
+padding: 8px 12px;
+border-radius: 999px;
+background: rgba(145,70,255,0.86);
+font-size: 10px;
+letter-spacing: .16em;
+text-transform: uppercase;
+color: #fff;
+border: 1px solid rgba(255,255,255,0.14);
+box-shadow: 0 12px 26px rgba(145,70,255,0.28);
+}
+
+.portrait-caption {
+position: absolute;
+left: 18px;
+right: 18px;
+bottom: 18px;
+z-index: 2;
+padding: 16px 16px 14px;
+border-radius: 18px;
+background: rgba(10,10,14,0.42);
+backdrop-filter: blur(14px);
+border: 1px solid rgba(255,255,255,0.08);
+}
+
+.portrait-caption h3 {
+font-size: 22px;
+letter-spacing: .02em;
+margin-bottom: 6px;
+}
+
+.portrait-caption p {
+font-size: 13px;
+line-height: 1.75;
+color: rgba(244,241,255,0.72);
+}
+
+.right-rail {
+display: grid;
+gap: 18px;
+align-content: start;
+}
+
+.widget {
+padding: 18px;
+}
+
+.widget-title {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+margin-bottom: 12px;
+}
+
+.widget-title h3 {
+font-size: 13px;
+letter-spacing: .18em;
+text-transform: uppercase;
+color: var(--paper-soft);
+}
+
+.live-pill {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+font-size: 10px;
+letter-spacing: .18em;
+text-transform: uppercase;
+color: #fff;
+padding: 7px 10px;
+border-radius: 999px;
+border: 1px solid rgba(255,255,255,0.10);
+background: rgba(255,255,255,0.03);
+}
+
+.live-dot {
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: #ff4659;
+box-shadow: 0 0 12px rgba(255,70,89,0.8);
+animation: pulse 1.2s ease-in-out infinite;
+}
+
+.player {
+position: relative;
+min-height: 400px;
+overflow: hidden;
+border-radius: 24px;
+border: 1px solid rgba(255,255,255,0.08);
+background:
+linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+#09090d;
+box-shadow: var(--shadow-xl);
+}
+
+.player-bg {
+position: absolute;
+inset: 0;
+background:
+radial-gradient(circle at 16% 18%, rgba(145,70,255,0.22), transparent 22%),
+radial-gradient(circle at 80% 20%, rgba(34,158,217,0.16), transparent 24%),
+radial-gradient(circle at 60% 80%, rgba(0,211,138,0.08), transparent 20%),
+linear-gradient(180deg, rgba(8,8,12,0.10), rgba(8,8,12,0.55) 54%, rgba(8,8,12,0.9) 100%);
+filter: saturate(1.1);
+}
+
+.scanlines {
+position: absolute;
+inset: 0;
+background: repeating-linear-gradient(
+to bottom,
+rgba(255,255,255,0.04) 0px,
+rgba(255,255,255,0.04) 1px,
+transparent 2px,
+transparent 4px
+);
+opacity: 0.07;
+pointer-events: none;
+mix-blend-mode: screen;
+}
+
+.player-grid {
+position: absolute;
+inset: 0;
+display: grid;
+grid-template-rows: auto 1fr auto;
+padding: 18px;
+z-index: 2;
+}
+
+.player-topbar,
+.player-bottombar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 14px;
+}
+
+.player-chip {
+padding: 9px 12px;
+border-radius: 999px;
+border: 1px solid rgba(255,255,255,0.10);
+background: rgba(12,12,18,0.44);
+backdrop-filter: blur(10px);
+font-size: 11px;
+letter-spacing: .14em;
+text-transform: uppercase;
+color: var(--paper-soft);
+}
+
+.player-center {
+display: grid;
+grid-template-columns: minmax(0, 1fr) 280px;
+gap: 18px;
+align-items: end;
+padding: 18px 0;
+}
+
+.stream-info {
+align-self: end;
+max-width: 700px;
+}
+
+.stream-kicker {
+font-size: 11px;
+letter-spacing: .32em;
+text-transform: uppercase;
+color: rgba(145,70,255,0.92);
+margin-bottom: 12px;
+}
+
+.stream-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(46px, 6vw, 78px);
+line-height: .95;
+letter-spacing: -.04em;
+font-weight: 600;
+}
+
+.stream-sub {
+margin-top: 12px;
+color: rgba(244,241,255,0.76);
+font-size: 15px;
+line-height: 1.9;
+max-width: 720px;
+}
+
+.now-playing {
+display: grid;
+gap: 10px;
+padding: 16px;
+border-radius: 22px;
+border: 1px solid rgba(255,255,255,0.08);
+background: rgba(8,8,12,0.44);
+backdrop-filter: blur(12px);
+align-self: end;
+}
+
+.np-label {
+font-size: 10px;
+letter-spacing: .24em;
+text-transform: uppercase;
+color: var(--muted);
+}
+
+.np-main {
+font-size: 20px;
+font-weight: 700;
+line-height: 1.2;
+}
+
+.np-sub {
+font-size: 13px;
+line-height: 1.7;
+color: rgba(244,241,255,0.72);
+}
+
+.equalizer {
+display: flex;
+align-items: end;
+gap: 6px;
+height: 58px;
+margin-top: 4px;
+}
+
+.equalizer span {
+width: 8px;
+border-radius: 999px 999px 2px 2px;
+background: linear-gradient(180deg, rgba(145,70,255,0.9), rgba(34,158,217,0.86));
+animation: eq 1.1s ease-in-out infinite;
+}
+
+.equalizer span:nth-child(2) { animation-delay: .12s; }
+.equalizer span:nth-child(3) { animation-delay: .22s; }
+.equalizer span:nth-child(4) { animation-delay: .32s; }
+.equalizer span:nth-child(5) { animation-delay: .42s; }
+.equalizer span:nth-child(6) { animation-delay: .52s; }
+.equalizer span:nth-child(7) { animation-delay: .62s; }
+.equalizer span:nth-child(8) { animation-delay: .72s; }
+
+.player-stats {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+}
+
+.player-stat {
+padding: 10px 12px;
+border-radius: 14px;
+border: 1px solid rgba(255,255,255,0.08);
+background: rgba(12,12,18,0.42);
+font-size: 12px;
+color: var(--paper-soft);
+}
+
+.content {
+padding: 22px;
+}
+
+.content-grid {
+display: grid;
+grid-template-columns: minmax(0, 1fr) 360px;
+gap: 18px;
+align-items: start;
+}
+
+.left-content {
+display: grid;
+gap: 18px;
+}
+
+.section-head {
+display: flex;
+justify-content: space-between;
+align-items: end;
+gap: 24px;
+margin-bottom: 22px;
+}
+
+.section-kicker {
+display: inline-flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 14px;
+font-size: 11px;
+letter-spacing: .28em;
+text-transform: uppercase;
+color: rgba(145,70,255,0.92);
+}
+
+.section-kicker::before {
+content: "";
+width: 40px;
+height: 1px;
+background: linear-gradient(90deg, rgba(145,70,255,0.95), transparent);
+}
+
+.section-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(38px, 4.8vw, 62px);
+line-height: .98;
+letter-spacing: -.04em;
+font-weight: 600;
+max-width: 760px;
+}
+
+.section-note {
+max-width: 320px;
+text-align: right;
+color: var(--muted);
+font-size: 13px;
+line-height: 1.85;
+letter-spacing: .05em;
+}
+
+.info-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 14px;
+}
+
+.info-card {
+padding: 22px;
+border-radius: 24px;
+border: 1px solid rgba(255,255,255,0.08);
+background:
+linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
+rgba(255,255,255,0.015);
+transition: transform .25s ease, border-color .25s ease;
+}
+
+.info-card:hover {
+transform: translateY(-4px);
+border-color: rgba(145,70,255,0.18);
+}
+
+.info-icon {
+font-size: 34px;
+margin-bottom: 14px;
+filter: drop-shadow(0 10px 18px rgba(0,0,0,0.2));
+}
+
+.info-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: 30px;
+margin-bottom: 10px;
+line-height: 1;
+}
+
+.info-desc {
+font-size: 14px;
+line-height: 1.82;
+color: rgba(244,241,255,0.72);
+}
+
+.about-panel {
+padding: 28px;
+}
+
+.about-text {
+color: rgba(244,241,255,0.76);
+font-size: 15px;
+line-height: 2;
+max-width: 920px;
+}
+
+.about-text p + p {
+margin-top: 16px;
+}
+
+.stats-row {
+margin-top: 24px;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 14px;
+}
+
+.stat {
+padding: 18px 18px 20px;
+border-radius: 18px;
+border: 1px solid rgba(255,255,255,0.08);
+background: rgba(255,255,255,0.03);
+}
+
+.stat-num {
+font-family: 'Cormorant Garamond', serif;
+font-size: 44px;
+line-height: .92;
+color: #b996ff;
+}
+
+.stat-label {
+margin-top: 8px;
+font-size: 11px;
+letter-spacing: .15em;
+text-transform: uppercase;
+color: var(--muted);
+line-height: 1.6;
+}
+
+.widget-grid {
+display: grid;
+grid-template-columns: 1.15fr .85fr;
+gap: 18px;
+}
+
+.schedule-list,
+.stream-list {
+display: grid;
+gap: 12px;
+}
+
+.schedule-item,
+.stream-item {
+display: grid;
+grid-template-columns: 92px 1fr;
+gap: 14px;
+padding: 16px;
+border-radius: 18px;
+border: 1px solid rgba(255,255,255,0.07);
+background: rgba(255,255,255,0.025);
+}
+
+.schedule-day,
+.stream-icon {
+font-family: 'Cormorant Garamond', serif;
+font-size: 32px;
+line-height: .95;
+color: rgba(185,150,255,0.76);
+}
+
+.schedule-name,
+.stream-name {
+font-size: 18px;
+font-weight: 700;
+margin-bottom: 4px;
+}
+
+.schedule-desc,
+.stream-desc {
+font-size: 13px;
+line-height: 1.8;
+color: rgba(244,241,255,0.70);
+}
+
+.chips {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin-top: 14px;
+}
+
+.chip {
+padding: 10px 12px;
+border-radius: 999px;
+font-size: 11px;
+letter-spacing: .14em;
+text-transform: uppercase;
+border: 1px solid rgba(255,255,255,0.08);
+background: rgba(255,255,255,0.03);
+color: var(--paper-soft);
+}
+
+.chat-panel {
+position: sticky;
+top: 86px;
+display: grid;
+gap: 14px;
+}
+
+.chat-wrap {
+padding: 0;
+overflow: hidden;
+}
+
+.chat-head {
+padding: 16px 16px 14px;
+border-bottom: 1px solid rgba(255,255,255,0.06);
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+background: rgba(255,255,255,0.02);
+}
+
+.chat-title {
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+
+.chat-title h3 {
+font-size: 13px;
+letter-spacing: .18em;
+text-transform: uppercase;
+color: var(--paper-soft);
+}
+
+.chat-title span {
+font-size: 11px;
+color: var(--muted);
+}
+
+.chat-status {
+padding: 8px 10px;
+border-radius: 999px;
+font-size: 10px;
+letter-spacing: .16em;
+text-transform: uppercase;
+border: 1px solid rgba(255,255,255,0.10);
+background: rgba(255,255,255,0.03);
+color: #fff;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+
+.chat-feed {
+height: 640px;
+overflow: hidden;
+padding: 14px 14px 16px;
+background:
+linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.02)),
+rgba(10,10,16,0.86);
+position: relative;
+}
+
+.chat-msg {
+margin-bottom: 8px;
+font-size: 13px;
+line-height: 1.58;
+color: rgba(244,241,255,0.84);
+word-break: break-word;
+animation: fadeInUp .3s ease;
+}
+
+.chat-name {
+font-weight: 700;
+margin-right: 6px;
+}
+
+.mod { color: #00d38a; }
+.vip { color: #ff6fc8; }
+.subr { color: #ffd257; }
+.regular { color: #b996ff; }
+.donation-name { color: #00d2ff; }
+.donation-text {
+color: rgba(0,210,255,0.96);
+font-weight: 600;
+}
+
+.badge {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-width: 18px;
+height: 18px;
+margin-right: 6px;
+padding: 0 5px;
+border-radius: 999px;
+font-size: 9px;
+letter-spacing: .08em;
+text-transform: uppercase;
+background: rgba(255,255,255,0.08);
+color: #fff;
+vertical-align: middle;
+transform: translateY(-1px);
+}
+
+.badge.mod-badge { background: rgba(0,211,138,0.18); border: 1px solid rgba(0,211,138,0.22); }
+.badge.vip-badge { background: rgba(255,111,200,0.18); border: 1px solid rgba(255,111,200,0.22); }
+.badge.sub-badge { background: rgba(255,210,87,0.18); border: 1px solid rgba(255,210,87,0.22); }
+
+.chat-footer {
+padding: 14px 16px 16px;
+border-top: 1px solid rgba(255,255,255,0.06);
+display: grid;
+gap: 10px;
+background: rgba(255,255,255,0.02);
+}
+
+.chat-note {
+font-size: 12px;
+line-height: 1.7;
+color: var(--muted);
+}
+
+.chat-input {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 12px 14px;
+border-radius: 16px;
+border: 1px solid rgba(255,255,255,0.08);
+background: rgba(255,255,255,0.025);
+color: rgba(244,241,255,0.42);
+font-size: 13px;
+}
+
+.mini-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 14px;
+}
+
+.mini-card {
+padding: 18px;
+}
+
+.mini-card h4 {
+font-size: 12px;
+letter-spacing: .16em;
+text-transform: uppercase;
+color: var(--paper-soft);
+margin-bottom: 10px;
+}
+
+.mini-card p {
+font-size: 13px;
+line-height: 1.85;
+color: rgba(244,241,255,0.72);
+}
+
+.quote-block {
+padding: 24px;
+position: relative;
+overflow: hidden;
+}
+
+.quote-block::before {
+content: "“";
+position: absolute;
+top: -12px;
+right: 20px;
+font-family: 'Cormorant Garamond', serif;
+font-size: 120px;
+line-height: 1;
+color: rgba(145,70,255,0.08);
+}
+
+.quote-text {
+position: relative;
+z-index: 1;
+font-size: 16px;
+line-height: 1.95;
+color: rgba(244,241,255,0.82);
+font-style: italic;
+}
+
+.quote-author {
+margin-top: 14px;
+font-size: 11px;
+letter-spacing: .16em;
+text-transform: uppercase;
+color: var(--muted);
+}
+
+.footer {
+padding: 24px 22px 30px;
+border-top: 1px solid rgba(255,255,255,0.05);
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 20px;
+flex-wrap: wrap;
+}
+
+.footer-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: 30px;
+color: #b996ff;
+letter-spacing: .05em;
+}
+
+.footer-copy {
+font-size: 11px;
+letter-spacing: .14em;
+text-transform: uppercase;
+color: var(--muted);
+}
+
+.reveal {
+opacity: 0;
+transform: translateY(28px);
+transition: opacity .85s var(--ease), transform .85s var(--ease);
+}
+
+.reveal.in-view {
+opacity: 1;
+transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: .08s; }
+.reveal-delay-2 { transition-delay: .16s; }
+.reveal-delay-3 { transition-delay: .24s; }
+
+@keyframes pulse {
+0%, 100% { transform: scale(1); opacity: 1; }
+50% { transform: scale(1.32); opacity: .62; }
+}
+
+@keyframes eq {
+0%,100% { height: 18px; opacity: .86; }
+50% { height: 54px; opacity: 1; }
+}
+
+@keyframes introLine {
+from { width: 0; opacity: 0; }
+to { width: min(72vw, 340px); opacity: 1; }
+}
+
+@keyframes introText {
+from { opacity: 0; transform: translateY(12px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+from { opacity: 0; transform: translateY(6px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1220px) {
+.hero-grid,
+.content-grid,
+.widget-grid,
+.hero-main {
+grid-template-columns: 1fr;
+}
+
+.right-rail,
+.chat-panel {
+position: static;
+}
+
+.chat-feed {
+height: 420px;
+}
+
+.section-head {
+flex-direction: column;
+align-items: start;
+}
+
+.section-note {
+text-align: left;
+max-width: 800px;
+}
+
+.info-grid,
+.stats-row,
+.mini-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@media (max-width: 760px) {
+.site-shell {
+width: min(calc(100% - 14px), 1500px);
+margin: 7px auto;
+border-radius: 22px;
+}
+
+.topbar {
+padding: 14px;
+border-radius: 0;
+}
+
+.nav {
+display: none;
+}
+
+.hero,
+.content {
+padding-left: 14px;
+padding-right: 14px;
+}
+
+.hero-main {
+padding: 18px;
+}
+
+.player-grid {
+padding: 12px;
+}
+
+.player-center {
+grid-template-columns: 1fr;
+}
+
+.hero-title {
+font-size: clamp(70px, 20vw, 116px);
+}
+
+.hero-copy,
+.about-text,
+.quote-text {
+font-size: 14px;
+}
+
+.info-grid,
+.stats-row,
+.mini-grid {
+grid-template-columns: 1fr;
+}
+
+.footer {
+padding: 18px 14px 24px;
+}
+
+.chat-feed {
+height: 360px;
+}
+
+.portrait-card img {
+min-height: 320px;
+}
+
+.btn {
+width: 100%;
+}
+
+.hero-actions {
+flex-direction: column;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+html { scroll-behavior: auto; }
+*, *::before, *::after {
+animation: none !important;
+transition: none !important;
+}
+.reveal {
+opacity: 1 !important;
+transform: none !important;
+}
+.intro { display: none !important; }
+}
 </style>
 </head>
-
 <body>
-
-<div class="wrapper">
-
-<div class="main">
-
-<!-- 🎥 PLAYER -->
-<div class="player"></div>
-
-<!-- 🧍 INFO -->
-<div class="card">
-
-<img src="avatar.jpg" class="avatar">
-
-<h1>ilyllli4</h1>
-<div class="sub">стримы без сценария • иногда кс • иногда тунчазы • иногда вообще не то</div>
-
-<div class="buttons">
-<a class="twitch" href="https://www.twitch.tv/ilyllli4" target="_blank">Twitch</a>
-<a class="telegram" href="https://t.me/+XdE7oQCOdGQxOTQy" target="_blank">Telegram</a>
+<div class="intro" id="intro" aria-hidden="true">
+<div class="intro-inner">
+<div class="intro-line"></div>
+<div class="intro-title">ilyllli4</div>
+<div class="intro-sub">стримы без сценария · чат · шум · случайность</div>
+</div>
 </div>
 
-<div class="info">
-🔴 онлайн: <span id="online">64</span><br>
-📅 стримы: почти всегда<br><br>
-
-играю во всё подряд — cs, танки, любые рандом игры<br>
-иногда просто смотрим что-то или сидим в чате<br><br>
-
-ничего идеального, просто живой поток
+<div class="site-shell">
+<header class="topbar">
+<div class="brand">
+<div class="brand-avatar">
+<img src="avatar.jpg" alt="ilyllli4">
+</div>
+<div>
+<div class="brand-title">ilyllli4</div>
+<div class="brand-sub">стример · twitch · tg</div>
+</div>
 </div>
 
-<div class="section">
-здесь не про скилл, а про момент
-если зашёл — уже часть происходящего
+<nav class="nav">
+<a href="#about">О стриме</a>
+<a href="#content">Что бывает</a>
+<a href="#chat-section">Чат</a>
+<a class="nav-cta" href="https://www.twitch.tv/ilyllli4" target="_blank" rel="noopener noreferrer">Twitch</a>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-grid">
+<div class="stack">
+<div class="panel hero-main reveal">
+<div>
+<div class="eyebrow">Твоя страница стримера</div>
+<h1 class="hero-title">ily<span class="accent">lll</span>i4</h1>
+<p class="hero-copy">
+Здесь нет ощущения, что всё заранее придумано. Сегодня это может быть CS,
+завтра — тунчазы, потом внезапно фильм, а через полчаса уже вообще другая игра.
+Не “идеальный канал”, а живой стрим, где всегда есть шанс на хороший момент,
+странную шутку и чат, который всё это подхватывает.
+</p>
+
+<div class="hero-meta">
+<div class="meta-pill">CS / тунчазы / всё подряд</div>
+<div class="meta-pill">Стримы почти всегда</div>
+<div class="meta-pill">Чат живёт отдельно</div>
 </div>
 
+<div class="hero-actions">
+<a class="btn btn-primary" href="https://www.twitch.tv/ilyllli4" target="_blank" rel="noopener noreferrer">Открыть Twitch</a>
+<a class="btn btn-secondary" href="https://t.me/+XdE7oQCOdGQxOTQy" target="_blank" rel="noopener noreferrer">Подписаться на Telegram</a>
+<a class="btn btn-soft" href="#content">Прокрутить ниже</a>
+</div>
 </div>
 
+<div class="hero-side">
+<div class="portrait-card">
+<div class="portrait-badge">В кадре</div>
+<img src="avatar.jpg" alt="Фото стримера">
+<div class="portrait-caption">
+<h3>Без сценария</h3>
+<p>
+Иногда стрим про попадания. Иногда — про то, как всё летит в стену.
+Смысл примерно в этом и есть.
+</p>
+</div>
+</div>
+</div>
 </div>
 
-<!-- 💬 CHAT -->
-<div class="chat">
-<div class="chat-header">чат</div>
-<div class="messages" id="chat"></div>
+<div class="player reveal reveal-delay-1">
+<div class="player-bg"></div>
+<div class="scanlines"></div>
+
+<div class="player-grid">
+<div class="player-topbar">
+<div class="player-chip">
+<span class="live-dot" style="display:inline-block;margin-right:8px;vertical-align:middle;"></span>
+Live сейчас
+</div>
+<div class="player-chip">Категория: всё, что зайдёт</div>
 </div>
 
+<div class="player-center">
+<div class="stream-info">
+<div class="stream-kicker">Сейчас в эфире</div>
+<div class="stream-title">стрим, который идёт куда хочет</div>
+<div class="stream-sub">
+В один день это катка в CS, в другой — тунчазы, потом внезапный фильм,
+потом просто чат и крики в пустоту. У этого канала нет одной дорожки,
+и в этом его кайф.
+</div>
+<div class="player-stats" style="margin-top:18px;">
+<div class="player-stat">онлайн: <strong id="heroOnline">142</strong></div>
+<div class="player-stat">чат: слишком активный</div>
+<div class="player-stat">режим: почти всегда онлайн</div>
+</div>
+</div>
+
+<div class="now-playing">
+<div class="np-label">Сцена эфира</div>
+<div class="np-main" id="sceneLabel">CS2 / рандом / разговоры</div>
+<div class="np-sub">
+Сейчас это выглядит как обычный стрим. Через десять минут уже может
+быть совсем другое.
+</div>
+<div class="equalizer" aria-hidden="true">
+<span style="height:20px"></span>
+<span style="height:38px"></span>
+<span style="height:24px"></span>
+<span style="height:54px"></span>
+<span style="height:34px"></span>
+<span style="height:28px"></span>
+<span style="height:48px"></span>
+<span style="height:22px"></span>
+</div>
+</div>
+</div>
+
+<div class="player-bottombar">
+<div class="player-chip">расписание: почти всегда</div>
+<div class="player-chip">чат: работает слишком хорошо</div>
+</div>
+</div>
+</div>
+</div>
+
+<aside class="right-rail">
+<div class="panel widget reveal reveal-delay-2">
+<div class="widget-title">
+<h3>Статус канала</h3>
+<div class="live-pill">
+<span class="live-dot"></span>
+Онлайн
+</div>
+</div>
+<div class="stats-row" style="margin-top:0;grid-template-columns:repeat(2,1fr);">
+<div class="stat">
+<div class="stat-num" id="onlineCount">142</div>
+<div class="stat-label">зрителей<br>прямо сейчас</div>
+</div>
+<div class="stat">
+<div class="stat-num" id="chatCount">183</div>
+<div class="stat-label">сообщений<br>в чате</div>
+</div>
+<div class="stat">
+<div class="stat-num">≈</div>
+<div class="stat-label">расписание<br>почти всегда</div>
+</div>
+<div class="stat">
+<div class="stat-num">∞</div>
+<div class="stat-label">шанс, что всё<br>уйдёт не по плану</div>
+</div>
+</div>
+</div>
+
+<div class="panel widget reveal reveal-delay-3">
+<div class="widget-title">
+<h3>В двух словах</h3>
+</div>
+<div class="chips">
+<div class="chip">CS</div>
+<div class="chip">Тунчазы = танки</div>
+<div class="chip">Фильмы</div>
+<div class="chip">Рандом игры</div>
+<div class="chip">Живой чат</div>
+<div class="chip">Иногда слишком живой</div>
+</div>
+</div>
+
+<div class="panel quote-block reveal" id="chat-section">
+<div class="quote-text">
+Это не канал, который пытается выглядеть слишком правильным.
+Здесь интереснее то, что стрим может спокойно сменить настроение
+прямо посреди эфира — и это воспринимается как норма.
+</div>
+<div class="quote-author">атмосфера канала</div>
+</div>
+</aside>
+</div>
+</section>
+
+<section class="content" id="content">
+<div class="content-grid">
+<div class="left-content">
+<div class="section-head reveal" id="about">
+<div>
+<div class="section-kicker">О стриме</div>
+<h2 class="section-title">Не один формат. Не одна игра. Не одна кнопка “play”.</h2>
+</div>
+<div class="section-note">
+Эта страница не должна выглядеть как пустая визитка.
+Она должна ощущаться как место, где реально что-то происходит.
+</div>
+</div>
+
+<div class="info-grid">
+<article class="info-card reveal reveal-delay-1">
+<div class="info-icon">🎯</div>
+<div class="info-title">CS</div>
+<div class="info-desc">
+Когда хочется собраться и зайти в катку нормально. Иногда получается красиво.
+Иногда чат запоминает момент раньше, чем ты сам.
+</div>
+</article>
+
+<article class="info-card reveal reveal-delay-2">
+<div class="info-icon">🪖</div>
+<div class="info-title">Тунчазы</div>
+<div class="info-desc">
+Да, это танки. Нет, называться они будут по-другому. Потому что если слово
+прилипло к стриму — оно уже часть канала.
+</div>
+</article>
+
+<article class="info-card reveal reveal-delay-3">
+<div class="info-icon">🎬</div>
+<div class="info-title">Всё подряд</div>
+<div class="info-desc">
+Сегодня игра, завтра фильм, потом ещё что-нибудь. И это как раз тот случай,
+когда “разноформатность” работает на вайб, а не против него.
+</div>
+</article>
+</div>
+
+<div class="panel about-panel reveal">
+<div class="section-kicker">Описание канала</div>
+<div class="about-text">
+<p>
+Это стрим без ощущения стерильности. Он не пытается быть идеально отполированным,
+не держится за один жанр и не делает вид, что здесь всё под контролем. Если хочется
+сесть в CS — будет CS. Если день просит тунчазов — будут тунчазы. Если настроение
+упирается в фильм, разговоры или какой-то внезапный рандом — значит, стрим спокойно
+повернёт туда.
+</p>
+<p>
+В этом и фишка: канал не выглядит как “готовая коробка”. Он живой. Его собирают
+момент, настроение, чат и то, что прямо сейчас лучше всего работает в кадре.
+Поэтому сюда заходят не только за игрой, а за общей атмосферой. За ощущением,
+что ты попал не в пустой интерфейс, а в эфир, где что-то реально происходит.
+</p>
+</div>
+
+<div class="stats-row">
+<div class="stat">
+<div class="stat-num">3+</div>
+<div class="stat-label">основных режима<br>стрима</div>
+</div>
+<div class="stat">
+<div class="stat-num">24/7</div>
+<div class="stat-label">ощущение, что<br>что-то начнётся</div>
+</div>
+<div class="stat">
+<div class="stat-num">1</div>
+<div class="stat-label">правило:<br>не скучать</div>
+</div>
+<div class="stat">
+<div class="stat-num">∞</div>
+<div class="stat-label">случайных<br>поворотов</div>
+</div>
+</div>
+</div>
+
+<div class="widget-grid">
+<div class="panel widget reveal">
+<div class="widget-title">
+<h3>Что бывает на стриме</h3>
+</div>
+
+<div class="stream-list">
+<div class="stream-item">
+<div class="stream-icon">01</div>
+<div>
+<div class="stream-name">Нормальная игра</div>
+<div class="stream-desc">
+Попытка зайти серьёзно, поиграть собрано и сделать вид, что этот канал
+вообще-то умеет быть аккуратным.
+</div>
+</div>
+</div>
+
+<div class="stream-item">
+<div class="stream-icon">02</div>
+<div>
+<div class="stream-name">Полный рандом</div>
+<div class="stream-desc">
+Любая игра, любое переключение, любой поворот. Ровно то состояние,
+когда зрители остаются не из-за правил, а из-за интереса.
+</div>
+</div>
+</div>
+
+<div class="stream-item">
+<div class="stream-icon">03</div>
+<div>
+<div class="stream-name">Фильм / разговоры / чат</div>
+<div class="stream-desc">
+Бывает и так. Когда контент уже не в кнопках, а в самом ощущении вечера.
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="panel widget reveal reveal-delay-1">
+<div class="widget-title">
+<h3>Расписание</h3>
+</div>
+
+<div class="schedule-list">
+<div class="schedule-item">
+<div class="schedule-day">≈</div>
+<div>
+<div class="schedule-name">Почти всегда</div>
+<div class="schedule-desc">
+Это не попытка уйти от ответа. Это честное расписание канала.
+</div>
+</div>
+</div>
+
+<div class="schedule-item">
+<div class="schedule-day">CS</div>
+<div>
+<div class="schedule-name">Когда хочется катку</div>
+<div class="schedule-desc">
+Иногда собранно, иногда нет, но почти всегда с эмоцией.
+</div>
+</div>
+</div>
+
+<div class="schedule-item">
+<div class="schedule-day">TZ</div>
+<div>
+<div class="schedule-name">Когда просит душа</div>
+<div class="schedule-desc">
+Тунчазы не спрашивают расписание. Они просто приходят.
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="mini-grid">
+<div class="panel mini-card reveal">
+<h4>Виджет: стиль чата</h4>
+<p>
+Здесь чат — не декоративная колонка. У него своя жизнь: модератор, обычные сообщения,
+редкие донаты и ощущение плотного потока, а не повторяющихся трёх фраз.
+</p>
+</div>
+
+<div class="panel mini-card reveal reveal-delay-1">
+<h4>Виджет: зачем заходить</h4>
+<p>
+Не за “идеальной витриной”. За тем, что стрим может быть смешным, кривым, шумным,
+иногда даже внезапно уютным — и от этого только лучше.
+</p>
+</div>
+</div>
+</div>
+
+<aside class="chat-panel">
+<div class="panel chat-wrap reveal">
+<div class="chat-head">
+<div class="chat-title">
+<h3>Чат канала</h3>
+<span>живой поток, роли, донаты, нормальный виджет</span>
+</div>
+<div class="chat-status">
+<span class="live-dot"></span>
+Активен
+</div>
+</div>
+
+<div class="chat-feed" id="chatFeed"></div>
+
+<div class="chat-footer">
+<div class="chat-note">
+Модератор в чате: <strong style="color:#00d38a;">ke1kuro0</strong>.
+Сообщения идут плотно, но без ощущения, что это один и тот же текст по кругу.
+</div>
+<div class="chat-input">Написать сообщение… (но это всё ещё виджет)</div>
+</div>
+</div>
+
+<div class="panel widget reveal reveal-delay-1">
+<div class="widget-title">
+<h3>Быстрая инфа</h3>
+</div>
+<div class="chips" style="margin-top:0;">
+<div class="chip">Twitch: активен</div>
+<div class="chip">Telegram: подключён</div>
+<div class="chip">Модер: ke1kuro0</div>
+<div class="chip">Донаты: включены</div>
+</div>
+</div>
+</aside>
+</div>
+</section>
+
+<footer class="footer">
+<div class="footer-title">ilyllli4</div>
+<div class="footer-copy">стримы без сценария · twitch / telegram · avatar.jpg подключён</div>
+</footer>
 </div>
 
 <script>
+const intro = document.getElementById('intro');
+window.addEventListener('load', () => {
+setTimeout(() => intro.classList.add('hidden'), 1700);
+});
 
-const chat = document.getElementById("chat");
+const revealItems = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('in-view');
+io.unobserve(entry.target);
+}
+});
+}, { threshold: 0.12 });
+revealItems.forEach(el => io.observe(el));
 
-/* 👑 пользователи */
+const onlineCount = document.getElementById('onlineCount');
+const heroOnline = document.getElementById('heroOnline');
+let online = 142;
+
+setInterval(() => {
+online += Math.floor(Math.random() * 4);
+onlineCount.textContent = online;
+heroOnline.textContent = online;
+}, 2600);
+
+const sceneLabel = document.getElementById('sceneLabel');
+const scenes = [
+'CS2 / рандом / разговоры',
+'Тунчазы / чат уже орёт',
+'Фильм / комменты / паузы',
+'Что-то новое / никто не ожидал',
+'Просто эфир / но уже работает'
+];
+let sceneIndex = 0;
+setInterval(() => {
+sceneIndex = (sceneIndex + 1) % scenes.length;
+sceneLabel.textContent = scenes[sceneIndex];
+}, 5600);
+
+const chatFeed = document.getElementById('chatFeed');
+const chatCount = document.getElementById('chatCount');
+
 const users = [
-{name:"ke1kuro0",role:"mod"},
-{name:"proPlayer"},
-{name:"cs_master"},
-{name:"tank_lord"},
-{name:"viewer228"},
-{name:"ghost"},
-{name:"fastAim"},
-{name:"slowBrain"},
-{name:"legend"},
-{name:"unknown"}
+{ name: 'ke1kuro0', role: 'mod', badge: 'MOD' },
+{ name: 'tunchaz_fan', role: 'vip', badge: 'VIP' },
+{ name: 'cs2widow', role: 'subr', badge: 'SUB' },
+{ name: 'ghostpeek', role: 'regular' },
+{ name: 'aim_na_vere', role: 'regular' },
+{ name: 'pyl_v_glazah', role: 'regular' },
+{ name: 'raznos_52', role: 'regular' },
+{ name: 'fullbuy_noob', role: 'subr', badge: 'SUB' },
+{ name: 'tank_eto_zhizn', role: 'vip', badge: 'VIP' },
+{ name: 'filmcheck', role: 'regular' },
+{ name: 'katka_sama', role: 'regular' },
+{ name: 'silentdrop', role: 'regular' },
+{ name: 'delay_15sec', role: 'regular' },
+{ name: 'moral_minus', role: 'regular' },
+{ name: 'legend_in_chat', role: 'regular' },
+{ name: 'random_tape', role: 'regular' },
+{ name: 'gg_ili_net', role: 'regular' },
+{ name: 'scope_na_pol', role: 'regular' },
+{ name: 'twitch_holod', role: 'regular' },
+{ name: 'smotru_vsegda', role: 'subr', badge: 'SUB' }
 ];
 
-/* 💬 сообщения (много) */
-const msgs = [
-"ДА КАК","жесть","это клип","GG","он жив?",
-"тунчазы пошли","что происходит","норм",
-"разнос","это было сильно","лол","давай ещё",
-"не повезло","имба","пот","соло катка",
-"боты","смешно","чел","красава","зачем",
-"не понял","в шоке","реально","так и надо",
-"всё ясно","классика","жёстко","GGWP",
-"стрим топ","музыку включи","давай фильм"
+const normalMessages = [
+'да это уже клип',
+'тунчазы пошли как родные',
+'ну вот сейчас было красиво',
+'чат, кто-нибудь понял этот мув?',
+'это момент из тех, ради которых и сидишь',
+'в кс это выглядело бы ещё больнее',
+'неожиданно спокойно, но я чувствую подвох',
+'ладно, этот стрим реально живёт сам по себе',
+'мне нравится, что тут формат ломается каждые полчаса',
+'как же чат быстро всё подхватывает',
+'если сейчас ещё фильм включится, я не удивлюсь',
+'моментально стало лучше',
+'это уже не стрим, это отдельная атмосфера',
+'вот сейчас вайб прям попал',
+'нормально зашло',
+'чел, ты видел, что произошло секунду назад?',
+'не знаю, что будет дальше, и в этом кайф',
+'сегодня очень живой эфир',
+'тунчазы как стиль жизни',
+'это было слишком вовремя',
+'с такой подачей можно вообще во всё играть',
+'жёстко, но красиво',
+'чат как будто сам пишет сценарий',
+'ну это сильно',
+'неожиданно уютный момент',
+'ладно, вот это зафиксировали',
+'почему это работает так хорошо?',
+'а я ведь просто на минуту зашёл',
+'вот после такого не уходят',
+'опять хорошее попадание в тайминг',
+'этот канал не умеет быть пустым',
+'тут даже паузы ощущаются нормально',
+'давай ещё катку',
+'можно смело ещё час сидеть',
+'если это не стримерский вайб, то что тогда',
+'кислород в чате есть, это важно',
+'всё ещё держится',
+'норм, я остаюсь',
+'в этот раз реально ровно',
+'оно живое, и это видно'
 ];
 
-/* 💸 донаты */
-const donos = [
-"забери 100₽","держи на пиво 50₽","500₽ просто так",
-"1000₽ за тунчазы","200₽ красава","300₽ за момент"
+const donationMessages = [
+'за красивый момент — 100₽',
+'на тунчазы, без вопросов — 250₽',
+'это было слишком хорошо, держи 500₽',
+'чат согласен, зафиксируй 300₽',
+'на следующий внезапный поворот — 150₽',
+'не знаю за что, но заслужил — 700₽',
+'за вайб вечера — 350₽',
+'чисто поддержать хаос — 200₽'
 ];
 
-function addMsg(){
+function makeBadge(user) {
+if (!user.badge) return '';
+let cls = 'badge ';
+if (user.badge === 'MOD') cls += 'mod-badge';
+if (user.badge === 'VIP') cls += 'vip-badge';
+if (user.badge === 'SUB') cls += 'sub-badge';
+return `<span class="${cls}">${user.badge}</span>`;
+}
 
-const chance = Math.random();
+function addChatMessage(initial = false) {
+const donationChance = Math.random();
+const div = document.createElement('div');
+div.className = 'chat-msg';
 
-const div = document.createElement("div");
-div.className="msg";
-
-/* 💸 донат */
-if(chance < 0.08){
-const name = users[Math.floor(Math.random()*users.length)].name;
-const d = donos[Math.floor(Math.random()*donos.length)];
-div.innerHTML = `<span class="name donate">${name} донатит:</span> ${d}`;
+if (donationChance < 0.08) {
+const user = users[Math.floor(Math.random() * users.length)];
+const text = donationMessages[Math.floor(Math.random() * donationMessages.length)];
+div.innerHTML = `${makeBadge(user)}<span class="chat-name donation-name">${user.name}</span><span class="donation-text">донатит:</span> ${text}`;
 } else {
-const u = users[Math.floor(Math.random()*users.length)];
-const m = msgs[Math.floor(Math.random()*msgs.length)];
-
-div.innerHTML = `<span class="name ${u.role||""}">${u.name}:</span> ${m}`;
+const user = users[Math.floor(Math.random() * users.length)];
+const text = normalMessages[Math.floor(Math.random() * normalMessages.length)];
+const role = user.role || 'regular';
+div.innerHTML = `${makeBadge(user)}<span class="chat-name ${role}">${user.name}</span>${text}`;
 }
 
-chat.appendChild(div);
+chatFeed.appendChild(div);
 
-if(chat.children.length > 200){
-chat.removeChild(chat.firstChild);
+while (chatFeed.children.length > 185) {
+chatFeed.removeChild(chatFeed.firstChild);
 }
 
-chat.scrollTop = chat.scrollHeight;
+chatCount.textContent = String(chatFeed.children.length);
+
+if (!initial) {
+chatFeed.scrollTop = chatFeed.scrollHeight;
+}
 }
 
-/* старт */
-for(let i=0;i<120;i++) addMsg();
+for (let i = 0; i < 155; i++) {
+addChatMessage(true);
+}
+chatFeed.scrollTop = chatFeed.scrollHeight;
 
-/* поток */
-setInterval(addMsg, 120);
-
-/* онлайн */
-let online = 64;
-setInterval(()=>{
-online += Math.floor(Math.random()*4);
-document.getElementById("online").innerText = online;
-},3000);
-
+setInterval(() => addChatMessage(false), 320);
 </script>
-
 </body>
 </html>
