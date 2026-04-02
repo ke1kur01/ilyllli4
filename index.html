@@ -8,180 +8,173 @@
 * {margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 
 body {
-background: radial-gradient(circle at center, #0a0a0a, #000);
-color: white;
-overflow-x: hidden;
-}
-
-/* 🌌 фон шум */
-body::after {
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-opacity:0.2;
-z-index:-1;
-}
-
-/* 🧱 рамка */
-.wrapper {
-margin:20px;
-border:1px solid rgba(255,255,255,0.1);
-border-radius:20px;
-box-shadow:0 0 60px rgba(255,255,255,0.05);
-overflow:hidden;
-}
-
-/* секции */
-.section {
-min-height:100vh;
+background:#0e0e10;
+color:white;
 display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-padding:60px 20px;
-text-align:center;
 }
 
-/* аватар */
+/* 🔥 MAIN */
+.main {
+flex:1;
+padding:40px;
+}
+
+/* 🧍 HERO */
 .avatar {
-width:160px;
+width:120px;
 border-radius:50%;
-box-shadow:0 0 40px rgba(255,255,255,0.3);
 margin-bottom:20px;
 }
 
-h1 {font-size:42px;}
-.subtitle {opacity:0.6;margin-top:10px;}
+h1 {font-size:36px;}
+.sub {opacity:0.6;margin-bottom:20px;}
 
 .buttons a {
-display:inline-block;
-margin:10px;
-padding:14px 26px;
-border-radius:12px;
+margin-right:10px;
+padding:10px 18px;
+border-radius:8px;
 text-decoration:none;
 color:white;
-transition:0.3s;
 }
 
 .twitch {background:#9146ff;}
 .telegram {background:#229ED9;}
 
-.buttons a:hover {
-transform:translateY(-4px);
-box-shadow:0 0 20px rgba(255,255,255,0.3);
-}
-
-/* 📜 текст */
-.about {
-max-width:700px;
-line-height:1.6;
+.info {
+margin-top:30px;
 opacity:0.8;
+line-height:1.6;
 }
 
-/* 💬 чат */
+/* 💬 CHAT */
 .chat {
-width:90%;
-max-width:700px;
-height:300px;
-overflow:hidden;
-border:1px solid rgba(255,255,255,0.1);
-border-radius:15px;
+width:320px;
+height:100vh;
+background:#18181b;
 padding:10px;
-background:rgba(0,0,0,0.5);
+overflow:hidden;
+border-left:1px solid #333;
+}
+
+.chat-header {
+padding:10px;
+font-weight:bold;
+border-bottom:1px solid #333;
+}
+
+.messages {
+height:90%;
+overflow:hidden;
 }
 
 .msg {
-font-size:14px;
-margin:4px 0;
-opacity:0.9;
+font-size:13px;
+margin:3px 0;
 }
 
-.name {color:#9146ff;}
+.name {font-weight:bold;}
+.vip {color:#ff69b4;}
+.mod {color:#00ff88;}
+.sub {color:#ffd700;}
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
+<!-- 🧍 MAIN -->
+<div class="main">
 
-<!-- HERO -->
-<div class="section">
 <img src="avatar.jpg" class="avatar">
+
 <h1>ililli4</h1>
-<div class="subtitle">cs • стримы • тунчазы</div>
+<div class="sub">cs • тунчазы • всё подряд</div>
 
 <div class="buttons">
 <a class="twitch" href="https://www.twitch.tv/ilyllli4" target="_blank">Twitch</a>
 <a class="telegram" href="https://t.me/+XdE7oQCOdGQxOTQy" target="_blank">Telegram</a>
 </div>
+
+<div class="info">
+🔴 сейчас онлайн: <span id="online">23</span><br><br>
+
+стримы почти всегда<br>
+играю во всё: cs, тунчазы, что угодно<br>
+иногда фильмы, иногда разнос<br><br>
+
+если зашёл — уже часть стрима
 </div>
 
-<!-- ABOUT -->
-<div class="section">
-<h1>что происходит</h1>
-
-<div class="about">
-стримы в основном про cs, но не только.<br><br>
-иногда это попытки играть нормально,<br>
-иногда полный разнос и тунчазы.<br><br>
-тут нет идеального геймплея,<br>
-зато есть атмосфера и движ.
-</div>
 </div>
 
 <!-- 💬 CHAT -->
-<div class="section">
-<h1>чат</h1>
+<div class="chat">
 
-<div class="chat" id="chat"></div>
-</div>
+<div class="chat-header">чат</div>
+
+<div class="messages" id="chat"></div>
 
 </div>
 
 <script>
 
-/* 💬 МНОГО СООБЩЕНИЙ */
+/* 💬 РЕАЛЬНЫЙ ЧАТ */
 const chat = document.getElementById("chat");
 
-const names = ["user123","csgo_fan","tunchaz","viewer","pro","random","ghost"];
-const messages = [
-"ДА КАК ТАК",
-"это было жёстко",
-"тунчазы пошли",
-"лучший стример",
-"давай ещё катку",
-"ты видел это??",
-"он жив?",
-"GG",
-"не повезло",
-"это клип",
-"жесть"
+const users = [
+{name:"proPlayer",role:"mod"},
+{name:"vip_guy",role:"vip"},
+{name:"sub777",role:"sub"},
+{name:"viewer123"},
+{name:"cs_master"},
+{name:"tank_lord"},
+{name:"random"}
 ];
 
-function addMessage() {
+const msgs = [
+"ДА КАК",
+"тунчазы пошли",
+"это было жёстко",
+"GG",
+"он жив?",
+"норм сыграл",
+"это клип",
+"давай ещё",
+"жесть",
+"что происходит"
+];
+
+function addMsg() {
+const u = users[Math.floor(Math.random()*users.length)];
+const m = msgs[Math.floor(Math.random()*msgs.length)];
+
 const div = document.createElement("div");
-div.className = "msg";
+div.className="msg";
 
-const name = names[Math.floor(Math.random()*names.length)];
-const msg = messages[Math.floor(Math.random()*messages.length)];
+let roleClass = u.role ? u.role : "";
 
-div.innerHTML = `<span class="name">${name}:</span> ${msg}`;
+div.innerHTML = `<span class="name ${roleClass}">${u.name}:</span> ${m}`;
+
 chat.appendChild(div);
 
-if(chat.children.length > 100){
+if(chat.children.length > 120){
 chat.removeChild(chat.firstChild);
 }
 
 chat.scrollTop = chat.scrollHeight;
 }
 
-/* сразу много сообщений */
-for(let i=0;i<40;i++) addMessage();
+/* много сразу */
+for(let i=0;i<60;i++) addMsg();
 
-/* потом поток */
-setInterval(addMessage, 300);
+/* поток */
+setInterval(addMsg, 200);
+
+/* 📈 онлайн растёт */
+let online = 23;
+setInterval(()=>{
+online += Math.floor(Math.random()*3);
+document.getElementById("online").innerText = online;
+},3000);
 
 </script>
 
