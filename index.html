@@ -9,249 +9,146 @@
 margin: 0;
 padding: 0;
 box-sizing: border-box;
-font-family: monospace;
+font-family: Arial;
 }
 
 body {
-background: black;
+background: #050505;
 color: white;
-overflow: hidden;
+scroll-behavior: smooth;
 }
 
-/* 🌌 CANVAS BACKGROUND */
-canvas {
+/* 🌌 фон */
+body::before {
+content: "";
 position: fixed;
-top: 0;
-left: 0;
-z-index: 0;
+width: 100%;
+height: 100%;
+background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 60%);
+z-index: -1;
 }
 
-/* 💎 CARD */
-.container {
-position: relative;
-z-index: 2;
+/* 🧍 секции */
+.section {
 height: 100vh;
 display: flex;
+flex-direction: column;
 justify-content: center;
 align-items: center;
-}
-
-.card {
-text-align: center;
 padding: 40px;
-border-radius: 20px;
-backdrop-filter: blur(25px);
-background: rgba(255,255,255,0.05);
-box-shadow: 0 0 60px rgba(255,255,255,0.1);
-transition: 0.2s;
 }
 
-/* 🧠 PARALLAX */
-.card:hover {
-transform: scale(1.03);
-}
-
-/* 🧍 AVATAR */
+/* 🔥 HERO */
 .avatar {
-width: 150px;
-height: 150px;
+width: 160px;
 border-radius: 50%;
-box-shadow: 0 0 40px white;
+box-shadow: 0 0 50px rgba(255,255,255,0.2);
 margin-bottom: 20px;
-transition: 0.3s;
 }
 
-.avatar:hover {
-transform: rotate(3deg) scale(1.08);
-box-shadow: 0 0 80px white;
+h1 {
+font-size: 42px;
+margin-bottom: 10px;
 }
 
-/* 💀 GLITCH TEXT */
-.glitch {
-font-size: 32px;
-position: relative;
+.subtitle {
+opacity: 0.6;
 }
 
-.glitch::before,
-.glitch::after {
-content: attr(data-text);
-position: absolute;
-left: 0;
+/* 🔘 кнопки */
+.buttons {
+margin-top: 30px;
 }
 
-.glitch::before {
-color: red;
-animation: glitch1 1s infinite;
-}
-
-.glitch::after {
-color: blue;
-animation: glitch2 1s infinite;
-}
-
-@keyframes glitch1 {
-0% { transform: translate(0); }
-20% { transform: translate(-2px, 2px); }
-40% { transform: translate(-2px, -2px); }
-60% { transform: translate(2px, 2px); }
-80% { transform: translate(2px, -2px); }
-}
-
-@keyframes glitch2 {
-0% { transform: translate(0); }
-20% { transform: translate(2px, -2px); }
-40% { transform: translate(2px, 2px); }
-60% { transform: translate(-2px, -2px); }
-80% { transform: translate(-2px, 2px); }
-}
-
-/* 🎭 BIO */
-.bio {
-margin-top: 10px;
-opacity: 0.7;
-height: 20px;
-}
-
-/* 🔘 BUTTONS */
-.buttons a {
-display: inline-block;
-margin: 10px;
-padding: 12px 22px;
-border-radius: 10px;
+a {
 text-decoration: none;
-color: white;
+padding: 14px 26px;
+border-radius: 12px;
+margin: 10px;
+display: inline-block;
+font-weight: bold;
 transition: 0.3s;
 }
 
-.twitch { background: #9146ff; }
-.telegram { background: #229ED9; }
-
-.buttons a:hover {
-transform: scale(1.1);
-box-shadow: 0 0 20px white;
+.twitch {
+background: #9146ff;
 }
 
-/* 💡 CURSOR LIGHT */
-.light {
-position: fixed;
-width: 200px;
-height: 200px;
-background: radial-gradient(circle, rgba(255,255,255,0.15), transparent);
-pointer-events: none;
-z-index: 1;
+.telegram {
+background: #229ED9;
+}
+
+a:hover {
+transform: translateY(-4px);
+box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+/* 📜 ABOUT */
+.about {
+max-width: 600px;
+text-align: center;
+line-height: 1.6;
+opacity: 0.8;
+}
+
+/* ⬇️ стрелка */
+.scroll {
+position: absolute;
+bottom: 20px;
+font-size: 20px;
+opacity: 0.4;
+animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+0%,100% { transform: translateY(0); }
+50% { transform: translateY(10px); }
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-<div class="light" id="light"></div>
-
-<div class="container">
-<div class="card">
+<!-- 🧍 HERO -->
+<div class="section">
 <img src="avatar.jpg" class="avatar">
 
-<div class="glitch" data-text="ililli4">ililli4</div>
-<div class="bio" id="bio"></div>
+<h1>ililli4</h1>
+<div class="subtitle">стримы • игры • иногда победы</div>
 
 <div class="buttons">
-<a href="#">Twitch</a>
-<a href="#">Telegram</a>
-</div>
-</div>
+<a class="twitch" href="https://www.twitch.tv/ilyllli4" target="_blank">Twitch</a>
+<a class="telegram" href="https://t.me/+XdE7oQCOdGQxOTQy" target="_blank">Telegram</a>
 </div>
 
-<script>
+<div class="scroll">↓</div>
+</div>
 
-/* 🌌 PARTICLES */
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
+<!-- 📜 ABOUT -->
+<div class="section">
+<h1>что происходит на стримах</h1>
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+<div class="about">
+здесь не про киберспорт и не про идеальный геймплей.<br><br>
+это место где иногда выигрываю, иногда страдаю,<br>
+но чаще всего просто делаю атмосферу.<br><br>
+если зашёл — уже часть происходящего.
+</div>
+</div>
 
-let particles = [];
+<!-- 🔥 EXTRA -->
+<div class="section">
+<h1>зачем заходить</h1>
 
-for (let i = 0; i < 120; i++) {
-particles.push({
-x: Math.random()*canvas.width,
-y: Math.random()*canvas.height,
-r: Math.random()*2,
-dx: (Math.random()-0.5)*0.5,
-dy: (Math.random()-0.5)*0.5
-});
-}
+<div class="about">
+• норм вайб без токсика<br>
+• иногда смешно<br>
+• иногда больно<br>
+• почти всегда неожиданно<br><br>
 
-function draw() {
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p => {
-p.x += p.dx;
-p.y += p.dy;
-
-if(p.x<0 || p.x>canvas.width) p.dx *= -1;
-if(p.y<0 || p.y>canvas.height) p.dy *= -1;
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle="white";
-ctx.fill();
-});
-
-requestAnimationFrame(draw);
-}
-
-draw();
-
-/* 💡 CURSOR LIGHT */
-const light = document.getElementById("light");
-document.addEventListener("mousemove", e => {
-light.style.left = e.clientX - 100 + "px";
-light.style.top = e.clientY - 100 + "px";
-});
-
-/* 🧠 RANDOM TEXT */
-const texts = [
-"стрим? возможно",
-"онлайн... иногда",
-"жив или нет",
-"зашёл — уже ошибка",
-"всё плохо, но красиво",
-"я тут просто существую"
-];
-
-const bio = document.getElementById("bio");
-
-function changeText() {
-bio.style.opacity = 0;
-setTimeout(()=>{
-bio.innerText = texts[Math.floor(Math.random()*texts.length)];
-bio.style.opacity = 0.7;
-},300);
-}
-
-setInterval(changeText, 2500);
-changeText();
-
-/* 🎧 SOUND (опционально) */
-document.querySelectorAll("a").forEach(btn => {
-btn.addEventListener("mouseenter", () => {
-const audio = new Audio("hover.mp3");
-audio.volume = 0.2;
-audio.play().catch(()=>{});
-});
-});
-
-/* 🌀 PARALLAX */
-document.addEventListener("mousemove", e => {
-const x = (e.clientX / window.innerWidth - 0.5) * 20;
-const y = (e.clientY / window.innerHeight - 0.5) * 20;
-document.querySelector(".card").style.transform =
-`rotateX(${ -y }deg) rotateY(${ x }deg)`;
-});
-
-</script>
+ну и просто потому что можешь
+</div>
+</div>
 
 </body>
 </html>
