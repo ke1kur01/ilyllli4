@@ -5,150 +5,185 @@
 <title>ililli4</title>
 
 <style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: Arial;
-}
+* {margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 
 body {
-background: #050505;
+background: radial-gradient(circle at center, #0a0a0a, #000);
 color: white;
-scroll-behavior: smooth;
+overflow-x: hidden;
 }
 
-/* 🌌 фон */
-body::before {
-content: "";
-position: fixed;
-width: 100%;
-height: 100%;
-background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 60%);
-z-index: -1;
+/* 🌌 фон шум */
+body::after {
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+opacity:0.2;
+z-index:-1;
 }
 
-/* 🧍 секции */
+/* 🧱 рамка */
+.wrapper {
+margin:20px;
+border:1px solid rgba(255,255,255,0.1);
+border-radius:20px;
+box-shadow:0 0 60px rgba(255,255,255,0.05);
+overflow:hidden;
+}
+
+/* секции */
 .section {
-height: 100vh;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 40px;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:60px 20px;
+text-align:center;
 }
 
-/* 🔥 HERO */
+/* аватар */
 .avatar {
-width: 160px;
-border-radius: 50%;
-box-shadow: 0 0 50px rgba(255,255,255,0.2);
-margin-bottom: 20px;
+width:160px;
+border-radius:50%;
+box-shadow:0 0 40px rgba(255,255,255,0.3);
+margin-bottom:20px;
 }
 
-h1 {
-font-size: 42px;
-margin-bottom: 10px;
+h1 {font-size:42px;}
+.subtitle {opacity:0.6;margin-top:10px;}
+
+.buttons a {
+display:inline-block;
+margin:10px;
+padding:14px 26px;
+border-radius:12px;
+text-decoration:none;
+color:white;
+transition:0.3s;
 }
 
-.subtitle {
-opacity: 0.6;
+.twitch {background:#9146ff;}
+.telegram {background:#229ED9;}
+
+.buttons a:hover {
+transform:translateY(-4px);
+box-shadow:0 0 20px rgba(255,255,255,0.3);
 }
 
-/* 🔘 кнопки */
-.buttons {
-margin-top: 30px;
-}
-
-a {
-text-decoration: none;
-padding: 14px 26px;
-border-radius: 12px;
-margin: 10px;
-display: inline-block;
-font-weight: bold;
-transition: 0.3s;
-}
-
-.twitch {
-background: #9146ff;
-}
-
-.telegram {
-background: #229ED9;
-}
-
-a:hover {
-transform: translateY(-4px);
-box-shadow: 0 0 20px rgba(255,255,255,0.3);
-}
-
-/* 📜 ABOUT */
+/* 📜 текст */
 .about {
-max-width: 600px;
-text-align: center;
-line-height: 1.6;
-opacity: 0.8;
+max-width:700px;
+line-height:1.6;
+opacity:0.8;
 }
 
-/* ⬇️ стрелка */
-.scroll {
-position: absolute;
-bottom: 20px;
-font-size: 20px;
-opacity: 0.4;
-animation: bounce 2s infinite;
+/* 💬 чат */
+.chat {
+width:90%;
+max-width:700px;
+height:300px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.1);
+border-radius:15px;
+padding:10px;
+background:rgba(0,0,0,0.5);
 }
 
-@keyframes bounce {
-0%,100% { transform: translateY(0); }
-50% { transform: translateY(10px); }
+.msg {
+font-size:14px;
+margin:4px 0;
+opacity:0.9;
 }
+
+.name {color:#9146ff;}
 </style>
 </head>
 
 <body>
 
-<!-- 🧍 HERO -->
+<div class="wrapper">
+
+<!-- HERO -->
 <div class="section">
 <img src="avatar.jpg" class="avatar">
-
 <h1>ililli4</h1>
-<div class="subtitle">стримы • игры • иногда победы</div>
+<div class="subtitle">cs • стримы • тунчазы</div>
 
 <div class="buttons">
 <a class="twitch" href="https://www.twitch.tv/ilyllli4" target="_blank">Twitch</a>
 <a class="telegram" href="https://t.me/+XdE7oQCOdGQxOTQy" target="_blank">Telegram</a>
 </div>
-
-<div class="scroll">↓</div>
 </div>
 
-<!-- 📜 ABOUT -->
+<!-- ABOUT -->
 <div class="section">
-<h1>что происходит на стримах</h1>
+<h1>что происходит</h1>
 
 <div class="about">
-здесь не про киберспорт и не про идеальный геймплей.<br><br>
-это место где иногда выигрываю, иногда страдаю,<br>
-но чаще всего просто делаю атмосферу.<br><br>
-если зашёл — уже часть происходящего.
+стримы в основном про cs, но не только.<br><br>
+иногда это попытки играть нормально,<br>
+иногда полный разнос и тунчазы.<br><br>
+тут нет идеального геймплея,<br>
+зато есть атмосфера и движ.
 </div>
 </div>
 
-<!-- 🔥 EXTRA -->
+<!-- 💬 CHAT -->
 <div class="section">
-<h1>зачем заходить</h1>
+<h1>чат</h1>
 
-<div class="about">
-• норм вайб без токсика<br>
-• иногда смешно<br>
-• иногда больно<br>
-• почти всегда неожиданно<br><br>
+<div class="chat" id="chat"></div>
+</div>
 
-ну и просто потому что можешь
 </div>
-</div>
+
+<script>
+
+/* 💬 МНОГО СООБЩЕНИЙ */
+const chat = document.getElementById("chat");
+
+const names = ["user123","csgo_fan","tunchaz","viewer","pro","random","ghost"];
+const messages = [
+"ДА КАК ТАК",
+"это было жёстко",
+"тунчазы пошли",
+"лучший стример",
+"давай ещё катку",
+"ты видел это??",
+"он жив?",
+"GG",
+"не повезло",
+"это клип",
+"жесть"
+];
+
+function addMessage() {
+const div = document.createElement("div");
+div.className = "msg";
+
+const name = names[Math.floor(Math.random()*names.length)];
+const msg = messages[Math.floor(Math.random()*messages.length)];
+
+div.innerHTML = `<span class="name">${name}:</span> ${msg}`;
+chat.appendChild(div);
+
+if(chat.children.length > 100){
+chat.removeChild(chat.firstChild);
+}
+
+chat.scrollTop = chat.scrollHeight;
+}
+
+/* сразу много сообщений */
+for(let i=0;i<40;i++) addMessage();
+
+/* потом поток */
+setInterval(addMessage, 300);
+
+</script>
 
 </body>
 </html>
