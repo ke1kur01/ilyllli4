@@ -2,136 +2,111 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>РОФЛ СТРИМЕР 9000</title>
+<title>ilyllli4</title>
 
 <style>
 body {
-background: black;
-color: lime;
-font-family: monospace;
+margin: 0;
+font-family: Arial;
+background: #0a0a0a;
+color: white;
 text-align: center;
 }
 
-button {
-margin: 10px;
-padding: 10px;
-font-size: 16px;
-background: purple;
+/* фон */
+body::before {
+content: "";
+position: fixed;
+inset: 0;
+background: radial-gradient(circle, rgba(255,255,255,0.05), transparent);
+}
+
+/* контейнер */
+.container {
+padding: 60px 20px;
+}
+
+/* фото */
+.avatar {
+width: 260px;
+border-radius: 20px;
+box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+margin-bottom: 30px;
+}
+
+/* заголовок */
+h1 {
+font-size: 48px;
+margin: 10px 0;
+}
+
+/* описание */
+.desc {
+color: #aaa;
+margin-bottom: 40px;
+}
+
+/* кнопки */
+.buttons {
+display: flex;
+justify-content: center;
+gap: 20px;
+flex-wrap: wrap;
+}
+
+.btn {
+padding: 16px 28px;
+border-radius: 999px;
+text-decoration: none;
 color: white;
-border: none;
-cursor: pointer;
+font-weight: bold;
+transition: 0.3s;
 }
 
-#chat {
-height: 200px;
-overflow-y: auto;
-border: 1px solid purple;
-padding: 10px;
+/* твич */
+.twitch {
+background: #9146ff;
 }
 
-.glitch {
-animation: glitch 0.1s infinite;
+.twitch:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 40px rgba(145,70,255,0.4);
 }
 
-@keyframes glitch {
-0% { transform: translate(2px,2px); }
-50% { transform: translate(-2px,-2px); }
-100% { transform: translate(2px,-2px); }
+/* тг */
+.telegram {
+background: #229ED9;
 }
+
+.telegram:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 40px rgba(34,158,217,0.4);
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>💀 РОФЛ СТРИМЕР 💀</h1>
+<div class="container">
 
-<p>👀 Онлайн: <span id="online">1</span></p>
+<img src="photo.jpg" class="avatar">
 
-<button onclick="donate()">💸 Донат 999₽</button>
-<button onclick="spin()">🎡 Колесо наказаний</button>
-<button onclick="chaos()">🌈 СЛОМАТЬ САЙТ</button>
-<button onclick="lag()">📉 УБИТЬ FPS</button>
-<button onclick="clicker()">🎮 Кликер</button>
+<h1>ilyllli4</h1>
 
-<h2>💬 ЧАТ</h2>
-<div id="chat"></div>
+<p class="desc">стримы, рофлы, жизнь</p>
 
-<h2>🔊 САУНДБОРД</h2>
-<button onclick="sound('AAAAAAAA')">ААААА</button>
-<button onclick="sound('ЧТО ЭТО БЫЛО')">ЧТО ЭТО</button>
+<div class="buttons">
+<a class="btn twitch" href="https://www.twitch.tv/ilyllli4" target="_blank">
+Twitch
+</a>
 
-<script>
+<a class="btn telegram" href="https://t.me/+XdE7oQCOdGQxOTQy" target="_blank">
+Telegram
+</a>
+</div>
 
-let online = 1;
-setInterval(()=>{
-online += Math.floor(Math.random()*5);
-document.getElementById("online").innerText = online;
-},2000);
-
-// чат
-const phrases = [
-"где вебка",
-"ты читер",
-"лучшиииий",
-"давай ещё",
-"стрим топ",
-"это было случайно"
-];
-
-setInterval(()=>{
-let msg = phrases[Math.floor(Math.random()*phrases.length)];
-let div = document.createElement("div");
-div.innerText = "👤 viewer: " + msg;
-document.getElementById("chat").appendChild(div);
-},1500);
-
-// донат
-function donate(){
-let msg = "СПАСИБО ЗА 999 РУБЛЕЙ БРАТ";
-alert(msg);
-
-let speech = new SpeechSynthesisUtterance(msg);
-speech.lang = "ru-RU";
-speechSynthesis.speak(speech);
-}
-
-// колесо
-function spin(){
-let punish = [
-"выпить воду",
-"кричать 10 секунд",
-"играть без рук",
-"сделать флекс"
-];
-alert("ТВОЁ НАКАЗАНИЕ: " + punish[Math.floor(Math.random()*punish.length)]);
-}
-
-// хаос
-function chaos(){
-document.body.classList.add("glitch");
-document.body.style.background = "rainbow";
-}
-
-// лаг
-function lag(){
-while(true){}
-}
-
-// кликер
-let clicks = 0;
-function clicker(){
-clicks++;
-alert("КЛИКОВ: " + clicks);
-}
-
-// звук
-function sound(text){
-let speech = new SpeechSynthesisUtterance(text);
-speech.lang = "ru-RU";
-speechSynthesis.speak(speech);
-}
-
-</script>
+</div>
 
 </body>
 </html>
