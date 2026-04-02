@@ -27,6 +27,7 @@
 --yellow:#ffd257;
 --red:#ff5c74;
 --cyan:#00d2ff;
+--orange:#ff9e57;
 --radius-xl:34px;
 --radius-lg:26px;
 --radius-md:18px;
@@ -43,9 +44,9 @@ overflow-x:hidden;
 color:var(--paper);
 font-family:'Inter',sans-serif;
 background:
-radial-gradient(circle at 14% 10%, rgba(145,70,255,.20), transparent 24%),
-radial-gradient(circle at 88% 18%, rgba(34,158,217,.13), transparent 18%),
-radial-gradient(circle at 54% 74%, rgba(0,211,138,.05), transparent 18%),
+radial-gradient(circle at 14% 10%, rgba(145,70,255,.22), transparent 24%),
+radial-gradient(circle at 88% 18%, rgba(34,158,217,.15), transparent 18%),
+radial-gradient(circle at 54% 74%, rgba(0,211,138,.06), transparent 18%),
 linear-gradient(180deg,#050508 0%, #09090d 40%, #0d0d13 100%);
 }
 
@@ -79,14 +80,15 @@ button{font:inherit}
 .cursor-glow{
 position:fixed;
 left:0; top:0;
-width:360px; height:360px;
+width:420px; height:420px;
 transform:translate(-50%,-50%);
 pointer-events:none;
 z-index:2;
-opacity:.92;
+opacity:.95;
 border-radius:50%;
-background:radial-gradient(circle, rgba(145,70,255,.12) 0%, rgba(34,158,217,.06) 32%, rgba(145,70,255,0) 72%);
+background:radial-gradient(circle, rgba(145,70,255,.15) 0%, rgba(34,158,217,.08) 34%, rgba(145,70,255,0) 74%);
 mix-blend-mode:screen;
+filter:blur(6px);
 }
 
 .site-shell{
@@ -425,12 +427,17 @@ display:grid;
 grid-template-rows:auto 1fr auto;
 padding:18px;
 z-index:3;
+min-width:0;
 }
 
 .player-topbar,
 .player-bottombar{
-display:flex;align-items:center;justify-content:space-between;gap:14px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:14px;
 flex-wrap:wrap;
+min-width:0;
 }
 .player-chip{
 padding:9px 12px;border-radius:999px;
@@ -447,6 +454,7 @@ grid-template-columns:minmax(0,1fr) 310px;
 gap:18px;
 align-items:end;
 padding:18px 0;
+min-width:0;
 }
 .stream-info{align-self:end;max-width:740px}
 .stream-kicker{
@@ -470,6 +478,7 @@ border:1px solid rgba(255,255,255,.08);
 background:rgba(8,8,12,.44);
 backdrop-filter:blur(12px);
 align-self:end;
+box-shadow:0 0 40px rgba(145,70,255,.08);
 }
 .np-label{
 font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
@@ -506,10 +515,18 @@ font-size:12px;color:var(--paper-soft);
 }
 
 .fake-controls{
-display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+display:flex;
+align-items:center;
+gap:12px;
+flex-wrap:wrap;
+min-width:0;
+flex:1;
 }
 .control-row{
-display:flex;align-items:center;gap:8px;
+display:flex;
+align-items:center;
+gap:8px;
+flex-shrink:0;
 }
 .ctrl{
 width:34px;height:34px;border-radius:50%;
@@ -517,9 +534,18 @@ display:grid;place-items:center;
 border:1px solid rgba(255,255,255,.10);
 background:rgba(255,255,255,.04);
 color:#fff;font-size:12px;
+transition:transform .2s ease, background .2s ease;
+}
+.ctrl:hover{
+transform:translateY(-1px);
+background:rgba(255,255,255,.08);
 }
 .progress{
-width:220px;height:8px;border-radius:999px;
+width:220px;
+max-width:260px;
+min-width:120px;
+flex:1;
+height:8px;border-radius:999px;
 background:rgba(255,255,255,.08);
 overflow:hidden;position:relative;
 }
@@ -528,6 +554,7 @@ position:absolute;left:0;top:0;bottom:0;width:36%;
 background:linear-gradient(90deg, var(--twitch), var(--tg));
 border-radius:inherit;
 transition:width .9s ease;
+box-shadow:0 0 20px rgba(145,70,255,.36);
 }
 
 .content{padding:22px}
@@ -575,6 +602,15 @@ background:
 linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
 rgba(255,255,255,.015);
 transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+position:relative;
+overflow:hidden;
+}
+.info-card::after{
+content:"";
+position:absolute; inset:auto -20% -40% auto;
+width:160px;height:160px;border-radius:50%;
+background:radial-gradient(circle, rgba(145,70,255,.10), transparent 68%);
+pointer-events:none;
 }
 .info-card:hover{
 transform:translateY(-4px);
@@ -655,20 +691,22 @@ color:var(--paper-soft);
 
 .clip-card{
 position:relative;
-min-height:164px;
+min-height:184px;
 border-radius:22px;
 border:1px solid rgba(255,255,255,.08);
 overflow:hidden;
 background:
-radial-gradient(circle at 16% 14%, rgba(145,70,255,.16), transparent 20%),
+radial-gradient(circle at 16% 14%, rgba(145,70,255,.18), transparent 20%),
 linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
 rgba(14,14,20,.88);
 padding:18px;
-transition:transform .25s ease, border-color .25s ease;
+transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+box-shadow:0 0 0 rgba(0,0,0,0);
 }
 .clip-card:hover{
-transform:translateY(-4px);
-border-color:rgba(145,70,255,.18);
+transform:translateY(-5px);
+border-color:rgba(145,70,255,.24);
+box-shadow:0 18px 44px rgba(0,0,0,.26), 0 0 30px rgba(145,70,255,.10);
 }
 .clip-meta{
 display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -685,7 +723,8 @@ font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;
 }
 .clip-title{
 font-family:'Cormorant Garamond', serif;
-font-size:30px;line-height:1.02;margin-bottom:8px;
+font-size:34px;line-height:1.02;margin-bottom:8px;
+max-width:90%;
 }
 .clip-desc{
 font-size:13px;line-height:1.8;color:rgba(246,242,255,.72);
@@ -693,18 +732,29 @@ max-width:90%;
 }
 .play-dot{
 position:absolute;right:16px;bottom:16px;
-width:42px;height:42px;border-radius:50%;
+width:46px;height:46px;border-radius:50%;
 display:grid;place-items:center;
 background:rgba(255,255,255,.08);
 border:1px solid rgba(255,255,255,.10);
 backdrop-filter:blur(8px);
+box-shadow:0 0 24px rgba(145,70,255,.10);
 }
 
 .widgets-mini{
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:repeat(3,1fr);
 }
 .mini-card{
 padding:18px;
+position:relative;
+overflow:hidden;
+}
+.mini-card::after{
+content:"";
+position:absolute;
+right:-40px;bottom:-40px;
+width:120px;height:120px;border-radius:50%;
+background:radial-gradient(circle, rgba(145,70,255,.10), transparent 68%);
+pointer-events:none;
 }
 .mini-card h4{
 font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-soft);
@@ -712,6 +762,7 @@ margin-bottom:10px;
 }
 .mini-card p{
 font-size:13px;line-height:1.85;color:rgba(246,242,255,.72);
+position:relative;z-index:1;
 }
 
 .quote-block{
@@ -866,6 +917,7 @@ grid-template-columns:1fr;
 .section-head{flex-direction:column;align-items:start}
 .section-note{text-align:left;max-width:800px}
 .info-grid,.stats-row,.widgets-mini{grid-template-columns:repeat(2,1fr)}
+.clips-grid{grid-template-columns:1fr!important}
 }
 
 @media (max-width: 760px){
@@ -887,7 +939,17 @@ margin:7px auto;border-radius:22px;
 .portrait-card img{min-height:320px}
 .btn{width:100%}
 .hero-actions{flex-direction:column}
-.progress{width:150px}
+.progress{
+width:100%;
+max-width:none;
+min-width:0;
+}
+.fake-controls{
+width:100%;
+}
+.player-bottombar{
+align-items:flex-start;
+}
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -1262,36 +1324,36 @@ Live сейчас
 <div class="clips-grid" style="grid-template-columns:repeat(3,1fr);">
 <div class="clip-card">
 <div class="clip-meta">
-<div class="clip-badge">Клип</div>
-<div class="clip-time">00:28</div>
+<div class="clip-badge">R.E.P.O</div>
+<div class="clip-time">00:31</div>
 </div>
-<div class="clip-title">«ДА КАК»</div>
+<div class="clip-title">Его Мстя была суровой!</div>
 <div class="clip-desc">
-Момент, после которого чат начал писать быстрее, чем стример успел договорить.
+Тот самый момент, где всё пошло слишком красиво, чтобы чат это отпустил.
 </div>
 <div class="play-dot">▶</div>
 </div>
 
 <div class="clip-card">
 <div class="clip-meta">
-<div class="clip-badge">Клип</div>
-<div class="clip-time">00:34</div>
+<div class="clip-badge">Dota</div>
+<div class="clip-time">00:27</div>
 </div>
-<div class="clip-title">тунчазы вошли</div>
+<div class="clip-title">Главный Фан Ивана Золо</div>
 <div class="clip-desc">
-Та самая сцена, когда канал сам решил, чем сегодня станет.
+Момент, после которого название закрепилось так плотно, что спорить уже никто не стал.
 </div>
 <div class="play-dot">▶</div>
 </div>
 
 <div class="clip-card">
 <div class="clip-meta">
-<div class="clip-badge">Клип</div>
-<div class="clip-time">00:19</div>
+<div class="clip-badge">Minecraft</div>
+<div class="clip-time">00:24</div>
 </div>
-<div class="clip-title">чат не отпустил</div>
+<div class="clip-title">не любит котов</div>
 <div class="clip-desc">
-Иногда лучший момент — это не игра, а реакция чата на неё.
+Абсолютно странный, но идеальный стримерский кусок, который чат запомнил моментально.
 </div>
 <div class="play-dot">▶</div>
 </div>
@@ -1314,13 +1376,6 @@ Live сейчас
 </div>
 
 <div class="panel mini-card reveal reveal-delay-2">
-<h4>Любимая фраза модера</h4>
-<p>
-<strong style="color:#00d38a;">ke1kuro0:</strong> привет отец
-</p>
-</div>
-
-<div class="panel mini-card reveal reveal-delay-3">
 <h4>Вероятность хаоса</h4>
 <p id="chaosWidget">
 Высокая. Особенно если чат почувствует слабину.
@@ -1687,7 +1742,6 @@ for (let i = 0; i < count; i++) addChatMessage(false);
 }
 
 setInterval(messageBurst, 260);
-
 </script>
 </body>
 </html>
