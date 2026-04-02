@@ -2,111 +2,256 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>ilyllli4</title>
+<title>ililli4</title>
 
 <style>
-body {
+* {
 margin: 0;
-font-family: Arial;
-background: #0a0a0a;
+padding: 0;
+box-sizing: border-box;
+font-family: monospace;
+}
+
+body {
+background: black;
 color: white;
-text-align: center;
+overflow: hidden;
 }
 
-/* фон */
-body::before {
-content: "";
+/* 🌌 CANVAS BACKGROUND */
+canvas {
 position: fixed;
-inset: 0;
-background: radial-gradient(circle, rgba(255,255,255,0.05), transparent);
+top: 0;
+left: 0;
+z-index: 0;
 }
 
-/* контейнер */
+/* 💎 CARD */
 .container {
-padding: 60px 20px;
-}
-
-/* фото */
-.avatar {
-width: 260px;
-border-radius: 20px;
-box-shadow: 0 20px 80px rgba(0,0,0,0.6);
-margin-bottom: 30px;
-}
-
-/* заголовок */
-h1 {
-font-size: 48px;
-margin: 10px 0;
-}
-
-/* описание */
-.desc {
-color: #aaa;
-margin-bottom: 40px;
-}
-
-/* кнопки */
-.buttons {
+position: relative;
+z-index: 2;
+height: 100vh;
 display: flex;
 justify-content: center;
-gap: 20px;
-flex-wrap: wrap;
+align-items: center;
 }
 
-.btn {
-padding: 16px 28px;
-border-radius: 999px;
-text-decoration: none;
-color: white;
-font-weight: bold;
+.card {
+text-align: center;
+padding: 40px;
+border-radius: 20px;
+backdrop-filter: blur(25px);
+background: rgba(255,255,255,0.05);
+box-shadow: 0 0 60px rgba(255,255,255,0.1);
+transition: 0.2s;
+}
+
+/* 🧠 PARALLAX */
+.card:hover {
+transform: scale(1.03);
+}
+
+/* 🧍 AVATAR */
+.avatar {
+width: 150px;
+height: 150px;
+border-radius: 50%;
+box-shadow: 0 0 40px white;
+margin-bottom: 20px;
 transition: 0.3s;
 }
 
-/* твич */
-.twitch {
-background: #9146ff;
+.avatar:hover {
+transform: rotate(3deg) scale(1.08);
+box-shadow: 0 0 80px white;
 }
 
-.twitch:hover {
-transform: translateY(-3px);
-box-shadow: 0 10px 40px rgba(145,70,255,0.4);
+/* 💀 GLITCH TEXT */
+.glitch {
+font-size: 32px;
+position: relative;
 }
 
-/* тг */
-.telegram {
-background: #229ED9;
+.glitch::before,
+.glitch::after {
+content: attr(data-text);
+position: absolute;
+left: 0;
 }
 
-.telegram:hover {
-transform: translateY(-3px);
-box-shadow: 0 10px 40px rgba(34,158,217,0.4);
+.glitch::before {
+color: red;
+animation: glitch1 1s infinite;
 }
 
+.glitch::after {
+color: blue;
+animation: glitch2 1s infinite;
+}
+
+@keyframes glitch1 {
+0% { transform: translate(0); }
+20% { transform: translate(-2px, 2px); }
+40% { transform: translate(-2px, -2px); }
+60% { transform: translate(2px, 2px); }
+80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch2 {
+0% { transform: translate(0); }
+20% { transform: translate(2px, -2px); }
+40% { transform: translate(2px, 2px); }
+60% { transform: translate(-2px, -2px); }
+80% { transform: translate(-2px, 2px); }
+}
+
+/* 🎭 BIO */
+.bio {
+margin-top: 10px;
+opacity: 0.7;
+height: 20px;
+}
+
+/* 🔘 BUTTONS */
+.buttons a {
+display: inline-block;
+margin: 10px;
+padding: 12px 22px;
+border-radius: 10px;
+text-decoration: none;
+color: white;
+transition: 0.3s;
+}
+
+.twitch { background: #9146ff; }
+.telegram { background: #229ED9; }
+
+.buttons a:hover {
+transform: scale(1.1);
+box-shadow: 0 0 20px white;
+}
+
+/* 💡 CURSOR LIGHT */
+.light {
+position: fixed;
+width: 200px;
+height: 200px;
+background: radial-gradient(circle, rgba(255,255,255,0.15), transparent);
+pointer-events: none;
+z-index: 1;
+}
 </style>
 </head>
 
 <body>
 
+<canvas id="bg"></canvas>
+<div class="light" id="light"></div>
+
 <div class="container">
+<div class="card">
+<img src="avatar.jpg" class="avatar">
 
-<img src="photo.jpg" class="avatar">
-
-<h1>ilyllli4</h1>
-
-<p class="desc">стримы, рофлы, жизнь</p>
+<div class="glitch" data-text="ililli4">ililli4</div>
+<div class="bio" id="bio"></div>
 
 <div class="buttons">
-<a class="btn twitch" href="https://www.twitch.tv/ilyllli4" target="_blank">
-Twitch
-</a>
-
-<a class="btn telegram" href="https://t.me/+XdE7oQCOdGQxOTQy" target="_blank">
-Telegram
-</a>
+<a href="#">Twitch</a>
+<a href="#">Telegram</a>
+</div>
+</div>
 </div>
 
-</div>
+<script>
+
+/* 🌌 PARTICLES */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 120; i++) {
+particles.push({
+x: Math.random()*canvas.width,
+y: Math.random()*canvas.height,
+r: Math.random()*2,
+dx: (Math.random()-0.5)*0.5,
+dy: (Math.random()-0.5)*0.5
+});
+}
+
+function draw() {
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p => {
+p.x += p.dx;
+p.y += p.dy;
+
+if(p.x<0 || p.x>canvas.width) p.dx *= -1;
+if(p.y<0 || p.y>canvas.height) p.dy *= -1;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+});
+
+requestAnimationFrame(draw);
+}
+
+draw();
+
+/* 💡 CURSOR LIGHT */
+const light = document.getElementById("light");
+document.addEventListener("mousemove", e => {
+light.style.left = e.clientX - 100 + "px";
+light.style.top = e.clientY - 100 + "px";
+});
+
+/* 🧠 RANDOM TEXT */
+const texts = [
+"стрим? возможно",
+"онлайн... иногда",
+"жив или нет",
+"зашёл — уже ошибка",
+"всё плохо, но красиво",
+"я тут просто существую"
+];
+
+const bio = document.getElementById("bio");
+
+function changeText() {
+bio.style.opacity = 0;
+setTimeout(()=>{
+bio.innerText = texts[Math.floor(Math.random()*texts.length)];
+bio.style.opacity = 0.7;
+},300);
+}
+
+setInterval(changeText, 2500);
+changeText();
+
+/* 🎧 SOUND (опционально) */
+document.querySelectorAll("a").forEach(btn => {
+btn.addEventListener("mouseenter", () => {
+const audio = new Audio("hover.mp3");
+audio.volume = 0.2;
+audio.play().catch(()=>{});
+});
+});
+
+/* 🌀 PARALLAX */
+document.addEventListener("mousemove", e => {
+const x = (e.clientX / window.innerWidth - 0.5) * 20;
+const y = (e.clientY / window.innerHeight - 0.5) * 20;
+document.querySelector(".card").style.transform =
+`rotateX(${ -y }deg) rotateY(${ x }deg)`;
+});
+
+</script>
 
 </body>
 </html>
