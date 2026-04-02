@@ -2,90 +2,142 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>ililli4</title>
+<title>ilyllli4</title>
 
 <style>
-* {margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial;}
 
-body {
-background: radial-gradient(circle at top, #1a1a1f, #0e0e10);
-color: white;
+body{
+background:#0e0e10;
+color:white;
 }
 
-/* 🌌 центр */
-.wrapper {
-max-width: 1100px;
-margin: 40px auto;
-display: flex;
-gap: 20px;
+/* 🌌 фон */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle at 30% 20%, rgba(145,70,255,0.15), transparent 40%),
+radial-gradient(circle at 70% 80%, rgba(34,158,217,0.15), transparent 40%);
+z-index:-1;
 }
 
-/* 🧱 основной блок */
-.main {
-flex: 1;
-background: #18181b;
-border-radius: 16px;
-padding: 30px;
-box-shadow: 0 0 40px rgba(0,0,0,0.6);
+/* 🧱 layout */
+.wrapper{
+max-width:1200px;
+margin:40px auto;
+display:flex;
+gap:20px;
 }
 
-/* 💬 чат */
-.chat-box {
-width: 340px;
-background: #18181b;
-border-radius: 16px;
-padding: 15px;
-box-shadow: 0 0 40px rgba(0,0,0,0.6);
-display: flex;
-flex-direction: column;
+/* 📺 MAIN */
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+gap:20px;
 }
 
-.chat-title {
-font-weight: bold;
-margin-bottom: 10px;
+/* 🎥 PLAYER */
+.player{
+height:300px;
+border-radius:16px;
+background:#000;
+position:relative;
+overflow:hidden;
+box-shadow:0 0 40px rgba(0,0,0,0.6);
 }
 
-.messages {
-height: 500px;
-overflow: hidden;
-font-size: 13px;
+.player::after{
+content:"LIVE";
+position:absolute;
+top:10px;
+left:10px;
+background:red;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
 }
 
-/* 🧍 */
-.avatar {
-width: 120px;
-border-radius: 50%;
-margin-bottom: 15px;
+/* шум */
+.player::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+opacity:0.15;
 }
 
-h1 {font-size: 34px;}
-.sub {opacity:0.6;margin-bottom:15px;}
+/* 🧍 инфо */
+.card{
+background:#18181b;
+border-radius:16px;
+padding:20px;
+box-shadow:0 0 30px rgba(0,0,0,0.6);
+}
 
-/* 🔘 */
-.buttons a {
+.avatar{
+width:90px;
+border-radius:50%;
+margin-bottom:10px;
+}
+
+h1{font-size:28px;}
+.sub{opacity:0.6;margin-bottom:10px;}
+
+.buttons a{
 display:inline-block;
 margin-right:10px;
-padding:10px 18px;
+padding:10px 16px;
 border-radius:8px;
 text-decoration:none;
 color:white;
 }
 
-.twitch {background:#9146ff;}
-.telegram {background:#229ED9;}
+.twitch{background:#9146ff;}
+.telegram{background:#229ED9;}
 
-.info {
-margin-top:25px;
+.info{margin-top:15px;opacity:0.8;line-height:1.5}
+
+/* 💬 CHAT */
+.chat{
+width:340px;
+background:#18181b;
+border-radius:16px;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+box-shadow:0 0 40px rgba(0,0,0,0.6);
+}
+
+.chat-header{
+padding:10px;
+border-bottom:1px solid #333;
+font-weight:bold;
+}
+
+.messages{
+height:520px;
+padding:10px;
+overflow:hidden;
+font-size:13px;
+}
+
+.msg{margin:3px 0;}
+.name{font-weight:bold;}
+.mod{color:#00ff88;}
+.vip{color:#ff69b4;}
+.sub{color:#ffd700;}
+.donate{color:#00e5ff;}
+
+/* 📜 блоки */
+.section{
+margin-top:10px;
 opacity:0.8;
 line-height:1.6;
 }
-
-/* 💬 сообщения */
-.msg {margin:3px 0;}
-.name {font-weight:bold;}
-.mod {color:#00ff88;}
-.vip {color:#ff69b4;}
-.sub {color:#ffd700;}
 
 </style>
 </head>
@@ -94,12 +146,18 @@ line-height:1.6;
 
 <div class="wrapper">
 
-<!-- MAIN -->
 <div class="main">
+
+<!-- 🎥 PLAYER -->
+<div class="player"></div>
+
+<!-- 🧍 INFO -->
+<div class="card">
+
 <img src="avatar.jpg" class="avatar">
 
-<h1>ililli4</h1>
-<div class="sub">cs • тунчазы • полный рандом</div>
+<h1>ilyllli4</h1>
+<div class="sub">стримы без сценария • иногда кс • иногда тунчазы • иногда вообще не то</div>
 
 <div class="buttons">
 <a class="twitch" href="https://www.twitch.tv/ilyllli4" target="_blank">Twitch</a>
@@ -107,20 +165,27 @@ line-height:1.6;
 </div>
 
 <div class="info">
-🔴 онлайн: <span id="online">42</span><br><br>
+🔴 онлайн: <span id="online">64</span><br>
+📅 стримы: почти всегда<br><br>
 
-стримы почти всегда<br>
-играю во всё: cs, тунчазы, любые игры<br>
-иногда смотрим фильмы<br><br>
+играю во всё подряд — cs, танки, любые рандом игры<br>
+иногда просто смотрим что-то или сидим в чате<br><br>
 
-тут не про идеальную игру —<br>
-тут про вайб
-</div>
+ничего идеального, просто живой поток
 </div>
 
-<!-- CHAT -->
-<div class="chat-box">
-<div class="chat-title">чат</div>
+<div class="section">
+здесь не про скилл, а про момент
+если зашёл — уже часть происходящего
+</div>
+
+</div>
+
+</div>
+
+<!-- 💬 CHAT -->
+<div class="chat">
+<div class="chat-header">чат</div>
 <div class="messages" id="chat"></div>
 </div>
 
@@ -130,66 +195,78 @@ line-height:1.6;
 
 const chat = document.getElementById("chat");
 
-/* 🔥 150+ сообщений */
+/* 👑 пользователи */
+const users = [
+{name:"ke1kuro0",role:"mod"},
+{name:"proPlayer"},
+{name:"cs_master"},
+{name:"tank_lord"},
+{name:"viewer228"},
+{name:"ghost"},
+{name:"fastAim"},
+{name:"slowBrain"},
+{name:"legend"},
+{name:"unknown"}
+];
+
+/* 💬 сообщения (много) */
 const msgs = [
-"ДА КАК","жесть","это клип","тунчазы пошли","GG","он жив?","разнос",
-"что происходит","норм","это было сильно","жёстко","лучший","лол",
-"ты видел это","давай ещё","не повезло","боль","имба","проиграл",
-"щас будет","изи","пот","соло катка","боты","смешно","чел",
-"красава","зачем","не понял","чёт странно","нормально","понятно",
-"минус мораль","это было красиво","а зачем","в шоке","реально?",
-"чел ты гений","так и надо","не надо было","всё ясно","классика",
-"тунчазы снова","да ладно","это не реально","жесть просто",
-"онлайн растёт","включай ещё","стрим топ","вот это момент",
-"GGWP","это было лишнее","давай фильм","музыку включи","лол кек",
-"почему так","всё плохо","сейчас будет слив","имба момент"
+"ДА КАК","жесть","это клип","GG","он жив?",
+"тунчазы пошли","что происходит","норм",
+"разнос","это было сильно","лол","давай ещё",
+"не повезло","имба","пот","соло катка",
+"боты","смешно","чел","красава","зачем",
+"не понял","в шоке","реально","так и надо",
+"всё ясно","классика","жёстко","GGWP",
+"стрим топ","музыку включи","давай фильм"
 ];
 
-const names = [
-"proPlayer","cs_master","tankGod","viewer123","vip777","mod_admin",
-"ghost","random","user228","darkPlayer","fastAim","slowBrain",
-"legend","unknown","player1","player2","sniper","noobMaster"
+/* 💸 донаты */
+const donos = [
+"забери 100₽","держи на пиво 50₽","500₽ просто так",
+"1000₽ за тунчазы","200₽ красава","300₽ за момент"
 ];
-
-function randomRole(){
-const r = Math.random();
-if(r < 0.1) return "mod";
-if(r < 0.2) return "vip";
-if(r < 0.3) return "sub";
-return "";
-}
 
 function addMsg(){
-const name = names[Math.floor(Math.random()*names.length)];
-const msg = msgs[Math.floor(Math.random()*msgs.length)];
-const role = randomRole();
+
+const chance = Math.random();
 
 const div = document.createElement("div");
 div.className="msg";
 
-div.innerHTML = `<span class="name ${role}">${name}:</span> ${msg}`;
+/* 💸 донат */
+if(chance < 0.08){
+const name = users[Math.floor(Math.random()*users.length)].name;
+const d = donos[Math.floor(Math.random()*donos.length)];
+div.innerHTML = `<span class="name donate">${name} донатит:</span> ${d}`;
+} else {
+const u = users[Math.floor(Math.random()*users.length)];
+const m = msgs[Math.floor(Math.random()*msgs.length)];
+
+div.innerHTML = `<span class="name ${u.role||""}">${u.name}:</span> ${m}`;
+}
 
 chat.appendChild(div);
 
-if(chat.children.length > 150){
+if(chat.children.length > 200){
 chat.removeChild(chat.firstChild);
 }
 
 chat.scrollTop = chat.scrollHeight;
 }
 
-/* заполняем сразу */
+/* старт */
 for(let i=0;i<120;i++) addMsg();
 
 /* поток */
-setInterval(addMsg, 150);
+setInterval(addMsg, 120);
 
 /* онлайн */
-let online = 42;
+let online = 64;
 setInterval(()=>{
-online += Math.floor(Math.random()*5);
+online += Math.floor(Math.random()*4);
 document.getElementById("online").innerText = online;
-},2000);
+},3000);
 
 </script>
 
